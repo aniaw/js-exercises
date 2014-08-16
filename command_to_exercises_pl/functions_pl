@@ -1,0 +1,12 @@
+Napisz funkcję, która:
+1)  odwraca kolejność cyfr liczby: reverseNumber(num)
+2)  sprawdza czy string jest palindromem: isPalindrome(str)
+3)  z podanego stringa zwraca string złożony tylko z liter: returnOnlyLetter(str)
+4)  zwraca litery w alfabetycznej kolejnosci: alphabetOrder(str)
+5)  zamienia pierwszą literę każdego słowa na dużą: upperCase(str)
+6)  zwraca najdłuższe słowo/słowa w stringu: findTheLongestWord(str)
+7)  zlicza liczbę samogłosek w stringu: vovelCount(str)
+8)  sprawdza czy liczba jest liczbą pierwszą: isPrimeNumber(num)
+9)  zwraca typ podanego argumentu whatType(arg)
+10) zwraca macierz o liczbie "n" wierszy pomnożonych przez liczbę "n" kolumn: matrix(n)
+11)
