@@ -137,4 +137,42 @@ describe('functions test', function () {
             expect(answers.matrix("20.9")).toBeFalsy();
         });
     });
+
+    describe('findMax', function () {
+        it('should return max value in array', function () {
+            expect(answers.findMax([1, 2, 3, 4])).toBe(4);
+        });
+        it('should return max value in array', function () {
+            expect(answers.findMax([100, 10, 20, 30])).toBe(100);
+        });
+        it('string should be omnitted', function () {
+            expect(answers.findMax([100, 'ala', 'kot', 200])).toBe(200);
+        });
+        it('string should be omnitted', function () {
+            expect(answers.findMax(['ala', 100, 'kot', 200])).toBe(200);
+        });
+        it('empty array should return false', function () {
+            expect(answers.findMax([])).toBeFalsy();
+        });
+
+    });
+
+    describe('findMin', function () {
+        it('should return min value in array', function () {
+            expect(answers.findMin([1, 2, 3, 4])).toBe(1);
+        });
+        it('should return min value in array', function () {
+            expect(answers.findMin([100, 10, 20, 30])).toBe(10);
+        });
+        it('string should be omnitted', function () {
+            expect(answers.findMin([100, 'ala', 'kot', 200])).toBe(100);
+        });
+        it('string should be omnitted', function () {
+            expect(answers.findMin(['ala', 100, 'kot', 200])).toBe(100);
+        });
+        it('empty array should return false', function () {
+            expect(answers.findMin([])).toBeFalsy();
+        });
+    });
+
 });

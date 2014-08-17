@@ -2,7 +2,7 @@
     'use strict';
 
     window.functions = {
-        /*Write function that reverse a number[1]*/
+        /*(1) Write function that reverse a number[1]*/
         reverseNumber: function (num) {
             if (isNaN(num)) {
                 return false;
@@ -11,7 +11,7 @@
             return parseInt(num.split("").reverse().join(""));
         },
 
-        /*Write function that checks is string a palindrome or not[2]*/
+        /*(2) Write function that checks is string a palindrome or not[2]*/
         isPalindrome: function (str) {
             var strTemp = str.toLowerCase(),
                 strLength = strTemp.length;
@@ -32,7 +32,7 @@
             return true;
 
         },
-        /*Write function that from string return only letters in string [my own]*/
+        /*(3) Write function that from string return only letters in string [#1]*/
         returnOnlyLetter: function (str) {
             if (typeof str !== 'string') {
                 return false;
@@ -49,12 +49,12 @@
             return outputArray.join();
         },
 
-        /*Write function that returns letters in alphabetical order [4]*/
+        /*(4) Write function that returns letters in alphabetical order [4]*/
         alphabetOrder: function (str) {
             return this.returnOnlyLetter(str.toLowerCase().split("").sort().join());
         },
 
-        /*Write function that converts the first letter of each word of the string in upper case[5]*/
+        /*(5) Write function that converts the first letter of each word of the string in upper case[5]*/
         upperCase: function (str) {
             var strTmp = str.split(" ");
             var outputArray = [];
@@ -69,7 +69,7 @@
             return outputArray.join(" ");
         },
 
-        /*Write function that find the longest word within the string [6]*/
+        /*(6) Write function that find the longest word within the string [6]*/
         findTheLongestWord: function (str) {
 
             /*match() - przyjmuje jako argument wyrażenie regularne
@@ -92,7 +92,7 @@
             return outputArray;
         },
 
-        /*Write a function that counts the number of vowels within the string [7]*/
+        /*(7) Write a function that counts the number of vowels within the string [7]*/
         vovelCount: function (str) {
             var vovelList = 'aeiouyAEIOUY',
                 vovCount = 0;
@@ -105,7 +105,7 @@
             return vovCount;
         },
 
-        /*Write a function that checks is the number a prime number [8]*/
+        /*(8) Write a function that checks is the number a prime number [8]*/
         isPrimeNumber: function (num) {
             if (num === 0 || num == 1) {
                 return false;
@@ -120,12 +120,12 @@
             }
             return true;
         },
-        /*Write a function which accepts an argument and returns the type [9]*/
+        /*(9) Write a function which accepts an argument and returns the type [9]*/
         whatType: function (arg) {
             return typeof(arg);
         },
 
-        /*Write a function which returns the n rows by n coluns identity matrix [my own]*/
+        /*(10) Write a function which returns the n rows by n columns identity matrix [#2]*/
         matrix: function (n) {
             if (typeof n != 'number') {
                 return false;
@@ -138,6 +138,44 @@
                 }
             }
             return outputArray;
+        },
+        /*(11) Write a function which returns max value of array [#3]*/
+        findMax: function (arr) {
+            var newArray = [];
+
+            for (var i = 0, arrLength = arr.length; i < arrLength; i++) {
+                if (typeof arr[i] === 'number') {
+                    newArray.push(arr[i]);
+                }
+            }
+
+            var max = newArray[0];
+            for (var j = 0, newArrayLength = newArray.length; j < newArrayLength; j++) {
+                if (newArray[j] > max) {
+                    max = newArray[j];
+                }
+            }
+            return max;
+        },
+        /*(12) Write a function which returns min value of array [#4]*/
+        findMin: function (arr) {
+            var newArray = [];
+
+            for (var i = 0, arrLength = arr.length; i < arrLength; i++) {
+                if (typeof arr[i] === 'number') {
+                    newArray.push(arr[i]);
+                }
+            }
+
+            var min = newArray[0];
+            for (var j = 0, newArrayLength = newArray.length; j < newArrayLength; j++) {
+                if (newArray[j] < min) {
+                    min = newArray[j];
+                }
+            }
+            return min;
+
         }
+
     };
 })();
