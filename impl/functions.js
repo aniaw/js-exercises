@@ -46,7 +46,7 @@
                     outputArray.push(temp[i]);
                 }
             }
-            return outputArray.join();
+            return outputArray.join("");
         },
 
         /*(4) Write function that returns letters in alphabetical order [4]*/
@@ -141,14 +141,17 @@
         },
         /*(11) Write a function which returns max value of array [#3]*/
         findMax: function (arr) {
-            var newArray = [];
+            var arrLength = arr.length;
+            if (arr.length == 0) {
+                return false;
+            }
 
-            for (var i = 0, arrLength = arr.length; i < arrLength; i++) {
+            var newArray = [];
+            for (var i = 0; i < arrLength; i++) {
                 if (typeof arr[i] === 'number') {
                     newArray.push(arr[i]);
                 }
             }
-
             var max = newArray[0];
             for (var j = 0, newArrayLength = newArray.length; j < newArrayLength; j++) {
                 if (newArray[j] > max) {
@@ -159,14 +162,17 @@
         },
         /*(12) Write a function which returns min value of array [#4]*/
         findMin: function (arr) {
-            var newArray = [];
+            var arrLength = arr.length;
+            if (arrLength == 0) {
+                return false;
+            }
 
-            for (var i = 0, arrLength = arr.length; i < arrLength; i++) {
+            var newArray = [];
+            for (var i = 0; i < arrLength; i++) {
                 if (typeof arr[i] === 'number') {
                     newArray.push(arr[i]);
                 }
             }
-
             var min = newArray[0];
             for (var j = 0, newArrayLength = newArray.length; j < newArrayLength; j++) {
                 if (newArray[j] < min) {
@@ -175,7 +181,54 @@
             }
             return min;
 
-        }
+        },
 
+        /*(13) Write function which will take an array of numbers and find second greatest number [10] */
+        findAlmostMax: function (arr) {
+            var arrLength = arr.length;
+            if (arrLength == 0) {
+                return false;
+            }
+
+            var tmpArray = [];
+            for (var i = 0; i < arrLength; i++) {
+                if (typeof arr[i] == 'number') {
+                    tmpArray.push(arr[i]);
+                }
+                if (tmpArray.length == 0) {
+                    return false;
+                }
+            }
+            return tmpArray.sort()[tmpArray.length - 2];
+        },
+        /*(14) Write function which will take an array of numbers and find second lowest number [10] */
+        findAlmostMin: function (arr) {
+            var arrLength = arr.length;
+            if (arrLength == 0) {
+                return false;
+            }
+
+            var tmpArray = [];
+            for (var i = 0; i < arrLength; i++) {
+                if (typeof arr[i] == 'number') {
+                    tmpArray.push(arr[i]);
+                }
+            }
+            if (tmpArray.length == 0) {
+                return false;
+            }
+            return arr.sort()[1];
+        },
+        /*(15) Write a JavaScript function to extract unique characters from a string [16]*/
+        findUniqueChart: function (str) {
+            var onlyLetter = this.returnOnlyLetter(str),
+                uniqueLetter = [];
+            for (var i = 0, oLength = onlyLetter.length; i < oLength; i++) {
+                if ((uniqueLetter.indexOf(onlyLetter.charAt(i))) == -1) {
+                    uniqueLetter.push(onlyLetter[i]);
+                }
+            }
+            return uniqueLetter.join("");
+        }
     };
 })();

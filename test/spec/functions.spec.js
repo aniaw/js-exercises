@@ -15,7 +15,7 @@ describe('functions test', function () {
             expect(answers.reverseNumber(1234)).not.toBe('4321');
         });
         it('should not accept not number as an argument', function () {
-            expect(answers.reverseNumber('abcs')).toBeFalsy();
+            expect(answers.reverseNumber('abcs')).toEqual(false);
         });
         it('should return single number', function () {
             expect(answers.reverseNumber(5)).toBe(5);
@@ -24,46 +24,46 @@ describe('functions test', function () {
 
     describe('isPalindrom', function () {
         it('"kajak" should return true', function () {
-            expect(answers.isPalindrome('kajak')).toBeTruthy();
+            expect(answers.isPalindrome('kajak')).toEqual(true);
         });
         it('"kajaki" should return false', function () {
-            expect(answers.isPalindrome('kajaki')).toBeFalsy();
+            expect(answers.isPalindrome('kajaki')).toEqual(false);
         });
         it('"kaaa4jaaak" should return false', function () {
-            expect(answers.isPalindrome('kaaa4jaaak')).toBeFalsy();
+            expect(answers.isPalindrome('kaaa4jaaak')).toEqual(false);
         });
         it('"Kajak" should return true', function () {
-            expect(answers.isPalindrome('Kajak')).toBeTruthy();
+            expect(answers.isPalindrome('Kajak')).toEqual(true);
         });
         it('" " should return false', function () {
-            expect(answers.isPalindrome(' ')).toBeFalsy();
+            expect(answers.isPalindrome(' ')).toEqual(false);
         });
         it('"That tahT" should return true', function () {
-            expect(answers.isPalindrome("That tahT")).toBeTruthy();
+            expect(answers.isPalindrome("That tahT")).toEqual(true);
         });
     });
 
     describe('returnOnlyLetter', function () {
         it('should return only letter', function () {
-            expect(answers.returnOnlyLetter('a4l1f5a')).toBe('a,l,f,a');
+            expect(answers.returnOnlyLetter('a4l1f5a')).toBe('alfa');
         });
         it('should return empty string', function () {
             expect(answers.returnOnlyLetter('45345')).toBe('');
         });
         it('number should return false', function () {
-            expect(answers.returnOnlyLetter(45345)).toBeFalsy();
+            expect(answers.returnOnlyLetter(45345)).toEqual(false);
         });
     });
 
     describe('alphabetOrder', function () {
         it('should return letters in alphabetical order', function () {
-            expect(answers.alphabetOrder('alfa')).toBe('a,a,f,l');
+            expect(answers.alphabetOrder('alfa')).toBe('aafl');
         });
         it('should return lower case letters in alphabetical order', function () {
-            expect(answers.alphabetOrder('AlfA')).toBe('a,a,f,l');
+            expect(answers.alphabetOrder('AlfA')).toBe('aafl');
         });
         it('should return only letters in alphabetical order', function () {
-            expect(answers.alphabetOrder('A1l2f3a')).toBe('a,a,f,l');
+            expect(answers.alphabetOrder('A1l2f3a')).toBe('aafl');
         });
 
     });
@@ -99,10 +99,10 @@ describe('functions test', function () {
 
     describe('isPrimeNumber', function () {
         it('11 should return true', function () {
-            expect(answers.isPrimeNumber(11)).toBeTruthy();
+            expect(answers.isPrimeNumber(11)).toEqual(true);
         });
         it('21 should return false', function () {
-            expect(answers.isPrimeNumber(21)).toBeFalsy();
+            expect(answers.isPrimeNumber(21)).toEqual(false);
         });
     });
     describe('whaType', function () {
@@ -131,10 +131,10 @@ describe('functions test', function () {
             ]);
         });
         it('"str" should return false', function () {
-            expect(answers.matrix("str")).toBeFalsy();
+            expect(answers.matrix("str")).toEqual(false);
         });
         it('"20.9" should return false', function () {
-            expect(answers.matrix("20.9")).toBeFalsy();
+            expect(answers.matrix("20.9")).toEqual(false);
         });
     });
 
@@ -152,7 +152,7 @@ describe('functions test', function () {
             expect(answers.findMax(['ala', 100, 'kot', 200])).toBe(200);
         });
         it('empty array should return false', function () {
-            expect(answers.findMax([])).toBeFalsy();
+            expect(answers.findMax([])).toEqual(false);
         });
 
     });
@@ -171,8 +171,60 @@ describe('functions test', function () {
             expect(answers.findMin(['ala', 100, 'kot', 200])).toBe(100);
         });
         it('empty array should return false', function () {
-            expect(answers.findMin([])).toBeFalsy();
+            expect(answers.findMin([])).toEqual(false);
         });
     });
+
+    describe('findAlmostMax', function () {
+        it('should return second greatest number', function () {
+            expect(answers.findAlmostMax([2, 3, 4])).toBe(3);
+        });
+        it('should return second greatest number', function () {
+            expect(answers.findAlmostMax([50, 40, 30, 10])).toBe(40);
+        });
+        it('string should be omnitted', function () {
+            expect(answers.findAlmostMax([50, 'str', 30, 10])).toBe(30);
+        });
+        it('empty array should return false', function () {
+            expect(answers.findAlmostMax([])).toEqual(false);
+        });
+        it('array of string should return false', function () {
+            expect(answers.findAlmostMax(['cat', 'kot'])).toEqual(false);
+        });
+    });
+
+    describe('findAlmostMin', function () {
+        it('should return second lowest number', function () {
+            expect(answers.findAlmostMin([1, 2, 3, 4, 5, 6])).toBe(2);
+        });
+        it('should return second lowest number', function () {
+            expect(answers.findAlmostMin([50, 40, 30, 10])).toBe(30);
+        });
+        it('string should be omnitted', function () {
+            expect(answers.findAlmostMin([50, 'str', 30, 10])).toBe(30);
+        });
+        it('empty array should return false', function () {
+            expect(answers.findAlmostMin([])).toEqual(false);
+        });
+        it('array of string should return false', function () {
+            expect(answers.findAlmostMin(['cat', 'kot'])).toEqual(false);
+        });
+    });
+    describe('findUniqueChart', function () {
+        it('should return unique chart', function () {
+            expect(answers.findUniqueChart('hahahahaha')).toBe('ha');
+        });
+        it('number should return empty string', function () {
+            expect(answers.findUniqueChart(123)).toBe('');
+        });
+        it('"number string" should return empty string', function () {
+            expect(answers.findUniqueChart('321')).toBe('');
+        });
+        it('"qwertyuiopasdfghjklzxcvbnm" should return "qwertyuiopasdfghjklzxcvbnm"', function () {
+            expect(answers.findUniqueChart('qwertyuiopasdfghjklzxcvbnm')).toBe('qwertyuiopasdfghjklzxcvbnm');
+        });
+
+    });
+
 
 });
