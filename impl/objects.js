@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    window.objects = {
+    window.ob = {
 
         /*(1) Write a function to list the properties of a JavaScript object.[1]*/
         listProperties: function(obj){
