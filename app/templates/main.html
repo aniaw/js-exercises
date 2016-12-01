@@ -1,0 +1,17 @@
+<section id="main" class="container">
+    <div class="row">
+        <h2>My wallet</h2>
+        <ul>
+            <li>PLN: {{vm.wallet.pln}}</li>
+            <li>PLN: {{vm.wallet.eur}}</li>
+        </ul>
+
+        <form name="form">
+            <label for="buy_eur">Buy euro</label>
+            <input type="text" name="buy_eur" ng-model="value" id="buy_eur">
+
+            <button ng-click="vm.buyEur()">Buy</button>
+        </form>
+
+    </div>
+</section>
