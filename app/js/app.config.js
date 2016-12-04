@@ -13,6 +13,14 @@
             controller: "MainCtrl",
             controllerAs: 'vm'
         })
+            .when("/second", {
+            templateUrl: "../templates/second.html",
+            controller: "SecondController",
+            controllerAs: 'vm'
+        })
             .otherwise({ redirecTo: '/'});
+
+
+
     }
 })();

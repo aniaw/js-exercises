@@ -4,5 +4,5 @@
 (function() {
     'use strict';
     angular
-    .module('cinkciarzTraining',["ngRoute"]);
+    .module('cinkciarzTraining',['ngRoute','ngStorage']);
 })();

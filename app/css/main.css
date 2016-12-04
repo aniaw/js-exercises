@@ -6721,8 +6721,9 @@ button.close {
     display: none !important;
   }
 }
-div {
-  padding-top: 15px;
+body {
+  font-size: 16px;
+  line-height: 150%;
 }
 .page_wrapper {
   margin-left: 15px;
@@ -6736,4 +6737,21 @@ div {
 }
 .main {
   background-color: #dddbb9;
+}
+.navbar {
+  min-height: 50px;
+  background-color: #ffffff;
+  border: 0;
+}
+.navbar-brand {
+  vertical-align: middle;
+}
+.navbar-brand h1 {
+  font-size: 32px;
+  margin-top: 0;
+  color: #000000;
+}
+.navbar-brand h1 .glyphicon-euro {
+  font-weight: bolder;
+  font-size: 35px;
 }

@@ -2,16 +2,17 @@
     <div class="row">
         <h2>My wallet</h2>
         <ul>
-            <li>PLN: {{vm.wallet.pln}}</li>
-            <li>PLN: {{vm.wallet.eur}}</li>
+            <li>PLN: {{vm.pln | number:2}}</li>
+            <li>EUR: {{vm.eur}}</li>
         </ul>
 
-        <form name="form">
-            <label for="buy_eur">Buy euro</label>
-            <input type="text" name="buy_eur" ng-model="value" id="buy_eur">
+        <p>{{vm.$storage.counter}}</p>
 
-            <button ng-click="vm.buyEur()">Buy</button>
-        </form>
+
+        <label for="buy_eur">Buy euro</label>
+        <input type="text" name="buy_eur" ng-model="value" id="buy_eur">
+
+        <button ng-click="vm.buyEur()" id="eur_buy">Buy</button>
 
     </div>
 </section>

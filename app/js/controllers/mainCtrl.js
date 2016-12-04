@@ -6,28 +6,36 @@
     "use strict";
     angular.module('cinkciarzTraining')
         .controller('MainCtrl', MainCtrl);
-    function MainCtrl($scope, MY_CONST){
-        var ctrl = this;
+    function MainCtrl($scope, MY_CONST, WalletService, $localStorage){
+        var vm = this;
 
-        ctrl.wallet = {
-            pln: 5000,
-            eur: 0
+        vm.$storage = $localStorage.$default({
+            counter: 1
+        });
+
+        vm.pln = WalletService.getPln();
+        vm.eur = WalletService.getEur();
+
+        vm.addMoney = function () {
+            WalletService.addMoney();
         };
 
-        ctrl.buyEur = buyEur;
+
+
+        vm.buyEur = buyEur;
 
         function buyEur() {
             var value = parseInt($scope.value,10);
             console.log('buyEur: '+  MY_CONST.EUR_BUY);
-            if(ctrl.wallet.pln >= MY_CONST.EUR_BUY){
-                if((value * MY_CONST.EUR_BUY) <= ctrl.wallet.pln){
-                    console.log(typeof ctrl.wallet.eur);
-                    ctrl.wallet.pln -= value * MY_CONST.EUR_BUY;
-                    ctrl.wallet.eur += value;
-                }
-            }
+            WalletService.buyEur(value);
+            vm.pln = WalletService.getPln();
+            vm.eur = WalletService.getEur();
+
         }
 
+        $scope.$watch(vm.pln, function(current,orginal){
+            console.log(current,orginal);
+        })
 
     }
 
