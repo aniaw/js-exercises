@@ -8,11 +8,5 @@
     function SecondController($scope,WalletService,$localStorage){
         var vm = this;
         vm.$storage = $localStorage;
-
-        vm.count = function(){
-            vm.$storage.counter++;
-        }
-
     }
-
 })(angular);

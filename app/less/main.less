@@ -47,3 +47,20 @@ body {
   }
 }
 
+.sidebar {
+  height: 100%;
+  width: 50px;
+  position: absolute;
+  top: 0;
+  left:0;
+  z-index: 100;
+  display: block;
+  background-color: #999999;
+  opacity: 0.2;
+  transition: width .7s ease-in-out;
+
+  &:hover {
+    width: 250px;
+  }
+
+}

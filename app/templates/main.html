@@ -2,11 +2,10 @@
     <div class="row">
         <h2>My wallet</h2>
         <ul>
-            <li>PLN: {{vm.pln | number:2}}</li>
-            <li>EUR: {{vm.eur}}</li>
+            <li>PLN: {{vm.pln | number:2}} zł </li>
+            <li>EUR: {{vm.eur | number:2}} <i class="glyphicon glyphicon-euro"></i> </li>
         </ul>
 
-        <p>{{vm.$storage.counter}}</p>
 
 
         <label for="buy_eur">Buy euro</label>

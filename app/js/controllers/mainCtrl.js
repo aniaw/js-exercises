@@ -9,9 +9,6 @@
     function MainCtrl($scope, MY_CONST, WalletService, $localStorage){
         var vm = this;
 
-        vm.$storage = $localStorage.$default({
-            counter: 1
-        });
 
         vm.pln = WalletService.getPln();
         vm.eur = WalletService.getEur();
@@ -32,11 +29,6 @@
             vm.eur = WalletService.getEur();
 
         }
-
-        $scope.$watch(vm.pln, function(current,orginal){
-            console.log(current,orginal);
-        })
-
     }
 
 })(angular);
