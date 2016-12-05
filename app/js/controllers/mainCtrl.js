@@ -6,7 +6,7 @@
     "use strict";
     angular.module('cinkciarzTraining')
         .controller('MainCtrl', MainCtrl);
-    function MainCtrl($scope, MY_CONST, WalletService, $localStorage){
+    function MainCtrl($scope, MY_CONST, WalletService){
         var vm = this;
 
 

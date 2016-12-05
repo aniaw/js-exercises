@@ -3,16 +3,14 @@
 @main-color: #dddbb9;
 @color-white: #ffffff;
 @color-black: #000000;
+@side: top;
 
 body {
   font-size: 16px;
   line-height: 150%;
 }
 
-.page_wrapper {
-  margin-left: 15px;
-  margin-right: 15px;
-}
+
 
 .testing {
   width: percentage(5/7);
@@ -39,7 +37,6 @@ body {
     margin-top: 0;
     color: @color-black;
 
-
     .glyphicon-euro {
       font-weight: bolder;
       font-size: 35px;
@@ -47,20 +44,25 @@ body {
   }
 }
 
-.sidebar {
-  height: 100%;
-  width: 50px;
-  position: absolute;
-  top: 0;
-  left:0;
-  z-index: 100;
-  display: block;
-  background-color: #999999;
-  opacity: 0.2;
-  transition: width .7s ease-in-out;
-
-  &:hover {
-    width: 250px;
-  }
-
+.pd-side(@top,@right,@bottom,@left){
+  padding: @top @right @bottom @left;
 }
+
+.page_wrapper {
+  .main;
+  border-radius: 10px;
+  width: 100%;
+  .pd-side(15px,15px,15px,15px);
+  -webkit-box-shadow: 3px 3px 1px 1px lightgrey;
+  -moz-box-shadow: 33px 3px 1px 1px lightgrey;
+  box-shadow: 3px 3px 1px 1px lightgrey;
+}
+
+.generate-pd-bottom(@n, @i: 0) when (@i =< @n) {
+  .pd-bottom-@{i} {
+    padding-bottom: (@i * 10px);
+  }
+  .generate-pd-bottom(@n, (@i + 1));
+}
+
+.generate-pd-bottom(5);

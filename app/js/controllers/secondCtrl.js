@@ -5,8 +5,13 @@
     "use strict";
     angular.module('cinkciarzTraining')
         .controller('SecondController', SecondController);
-    function SecondController($scope,WalletService,$localStorage){
+    function SecondController($localStorage){
         var vm = this;
         vm.$storage = $localStorage;
+
+        vm.status = {
+            isFirstOpen: true,
+            isFirstDisabled: false
+        }
     }
 })(angular);
