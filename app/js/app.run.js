@@ -15,7 +15,9 @@
             $localStorage.$default({
                 wallet: {
                     pln: startVal ? startVal : 0,
-                    eur: 0
+                    eur: 0,
+                    usd: 0,
+                    gbp: 0
                 }
             });
         }

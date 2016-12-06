@@ -6,24 +6,30 @@
     "use strict";
     angular.module('cinkciarzTraining')
         .controller('MainCtrl', MainCtrl);
-    function MainCtrl($scope, MY_CONST, WalletService,$window) {
+    function MainCtrl($scope, MY_CONST, WalletService,$window,$localStorage) {
         var vm = this;
+        vm.storage = $localStorage;
 
         vm.pln = WalletService.getPln();
         vm.eur = WalletService.getEur();
+        vm.usd = WalletService.getUsd();
+        vm.gbp = WalletService.getGbp();
+
+        vm.EUR_BUY = MY_CONST.EUR_BUY;
+        vm.EUR_SEL = MY_CONST.EUR_SEL;
 
         vm.reset = reset;
-        vm.buyEur = buyEur;
-
+        vm.sellEur = sellEur;
+        vm.checkEur = checkEur;
         //////////////////////
 
-        function buyEur() {
+
+
+        function sellEur() {
             var value = parseInt($scope.value, 10);
-            console.log('buyEur: ' + MY_CONST.EUR_BUY);
-            WalletService.buyEur(value);
+            WalletService.sellEur(value);
             vm.pln = WalletService.getPln();
             vm.eur = WalletService.getEur();
-
         }
 
         function reset() {
@@ -31,8 +37,14 @@
             if(confirm) {
                 WalletService.reset();
             }
-            return ;
+        }
 
+        function checkEur(){
+            if($localStorage.wallet.eur > 0){
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 
