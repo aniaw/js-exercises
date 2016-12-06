@@ -7,7 +7,7 @@
         <input type="text" ng-model="value" id="buy" class="form-control">
 
         <div>
-            <ul ng-repeat="t in vm.errorsArray">
+            <ul ng-repeat="t in vm.errorsArray track by $index">
                 <li>{{t}}</li>
             </ul>
         </div>

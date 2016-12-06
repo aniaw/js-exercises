@@ -5,7 +5,7 @@
     "use strict";
     angular.module('cinkciarzTraining')
         .controller('BuyController', BuyController);
-    function BuyController($scope, $routeParams, WalletService, MY_CONST) {
+    function BuyController($scope, $routeParams, WalletService, MY_CONST,$timeout) {
         var vm = this;
         vm.currency = $routeParams.currency;
         vm.get = WalletService['get' + vm.currency]();
@@ -15,6 +15,8 @@
         vm.pln = WalletService.getPln();
         vm.validateValue = validateValue;
         vm.errorsArray = [];
+
+        var clicked = false;
 
         ///////////////////////
         function showTitle() {
@@ -33,8 +35,15 @@
             }else {
                 var value = parseInt($scope.value, 10);
                 if(value * MY_CONST.EUR_BUY > vm.pln){
-                    console.log('insuff');
-                    vm.errorsArray.push('Insufficent funds');
+                    if(!clicked) {
+                        vm.errorsArray.push('Insufficent funds');
+                        $timeout(function () {
+                            vm.errorsArray = [];
+                            $scope.value = 0;
+                            clicked = false;
+                        }, 5000);
+                        clicked = true;
+                    }
                 }else {
                     WalletService['buy' + vm.currency](value);
                     vm.pln = WalletService.getPln();

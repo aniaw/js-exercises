@@ -1,6 +1,7 @@
 <section id="main">
     <div class="row page_wrapper">
-        <div class="relative"><h2>Mój portfel</h2>
+        <div class="relative"><h2>Mój portfel</h2><button ng-click="vm.getCurrencies()">Get currencies</button>
+            Currency: {{vm.rates.rates[0].bid}}
             <h3><span class="text-bold">PLN:</span> {{vm.pln | number:2}} zł</h3>
 
             <div class="right-btn">

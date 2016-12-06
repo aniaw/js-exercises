@@ -6,7 +6,7 @@
     "use strict";
     angular.module('cinkciarzTraining')
         .controller('MainCtrl', MainCtrl);
-    function MainCtrl($scope, MY_CONST, WalletService,$window,$localStorage) {
+    function MainCtrl($scope, MY_CONST, WalletService,$window,$localStorage,CurrenciesService, $http) {
         var vm = this;
         vm.storage = $localStorage;
 
@@ -17,6 +17,9 @@
 
         vm.EUR_BUY = MY_CONST.EUR_BUY;
         vm.EUR_SEL = MY_CONST.EUR_SEL;
+
+        vm.rates = {};
+        getCurrencies();
 
         vm.reset = reset;
         vm.sellEur = sellEur;
@@ -45,6 +48,17 @@
             } else {
                 return true;
             }
+        }
+
+        function getCurrencies(){
+            console.log('get currencies');
+            CurrenciesService.getCurrencies()
+                .then(function(data){
+                console.log(data);
+                vm.rates = data;
+            }, function(error){
+                console.log('Error ',error);
+            })
         }
     }
 
