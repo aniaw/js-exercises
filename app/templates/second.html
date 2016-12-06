@@ -1,8 +1,4 @@
 <div class="container">
-    {{vm.$storage.wallet.pln}}
-    <uib-accordion>
-        <div uib-accordion-group class="panel-default" heading="Static header" is-open="vm.status.isFirstOpen" is-disabled="vm.status.isFirstDisabled">
-            This is a content
-        </div>
-    </uib-accordion>
+    {{vm.$storage.wallet.pln | number:2}}
+
 </div>
