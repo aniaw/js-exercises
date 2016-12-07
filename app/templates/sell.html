@@ -1,5 +1,19 @@
 <section>
     <div class="row page_wrapper">
-        {{vm.currency}}
+        <h2>Sprzedaż {{vm.showTitle()}}</h2>
+        <h3>PLN: {{vm.pln | number : 2}}</h3>
+        <h3>{{vm.rate.code}}: {{vm.get}}</h3>
+        <h3>Kurs sprzedaży: {{vm.rate.rates[0].ask}}</h3>
+
+        <label for="buy">Podaj ilośc: </label>
+        <input type="text" ng-model="value" id="buy" class="form-control">
+
+        <div ng-hide="vm.divHide">
+            {{vm.message}}
+        </div>
+
+        <button class="btn btn-success" ng-click="vm.sell()">Kup</button>
+
+        <button class="btn btn-info" ng-click="vm.back()">Powrót</button>
     </div>
 </section>

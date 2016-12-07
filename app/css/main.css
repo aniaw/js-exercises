@@ -6752,7 +6752,7 @@ body {
   background-color: #dddbb9;
   border-radius: 10px;
   width: 100%;
-  padding: 15px 15px 15px 15px;
+  padding: 25px 35px 15px 35px;
   -webkit-box-shadow: 3px 3px 1px 1px lightgrey;
   -moz-box-shadow: 33px 3px 1px 1px lightgrey;
   box-shadow: 3px 3px 1px 1px lightgrey;
@@ -6787,17 +6787,17 @@ body {
   position: relative;
 }
 .td-mixin {
-  padding: 3px 4px 3px 6px;
+  padding: 5px 8px 5px 8px;
   text-align: center;
 }
 .my-table {
   padding: 5px 8px 5px 8px;
 }
 .my-table th {
-  padding: 3px 4px 3px 6px;
+  padding: 5px 8px 5px 8px;
   text-align: center;
 }
 .my-table td {
-  padding: 3px 4px 3px 6px;
+  padding: 5px 8px 5px 8px;
   text-align: center;
 }

@@ -10,15 +10,28 @@
         return {
             getCurrencies: function () {
                 var deffered = $q.defer();
-                $http.get('http://api.nbp.pl/api/exchangerates/rates/c/usd/today/').success(function (data) {
-                    return deffered.resolve(data);
-                })
-                    .error(function(data){
-                    return deffered.reject(data);
+                var urls = [
+                    { url: 'http://api.nbp.pl/api/exchangerates/rates/c/usd/today/' },
+                    { url: 'http://api.nbp.pl/api/exchangerates/rates/c/eur/today/' },
+                    { url: 'http://api.nbp.pl/api/exchangerates/rates/c/gbp/today/' },
+                ];
+
+                var urlsCalls = [];
+                angular.forEach(urls, function(url){
+                    urlsCalls.push($http.get(url.url));
                 });
+                $q.all(urlsCalls)
+                    .then(function (result){
+                        deffered.resolve(result)
+                    },
+                    function (error) {
+                        deffered.reject(error);
+                    });
 
                 return deffered.promise;
             }
+
+
         }
     }
 

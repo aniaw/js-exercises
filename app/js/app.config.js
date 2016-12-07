@@ -13,9 +13,9 @@
             controller: 'MainCtrl',
             controllerAs: 'vm'
         })
-            .when('/second', {
-            templateUrl: '../templates/second.html',
-            controller: 'SecondController',
+            .when('/info', {
+            templateUrl: '../templates/info.html',
+            controller: 'InfoController',
             controllerAs: 'vm'
         })
             .when('/buy/:currency', {

@@ -14,10 +14,10 @@
             startVal = parseInt(startVal, 10);
             $localStorage.$default({
                 wallet: {
-                    pln: startVal ? startVal : 0,
-                    eur: 0,
-                    usd: 0,
-                    gbp: 0
+                    PLN: startVal ? startVal : 0,
+                    EUR: 0,
+                    USD: 0,
+                    GBP: 0
                 }
             });
         }

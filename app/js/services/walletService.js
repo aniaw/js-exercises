@@ -8,31 +8,31 @@
 
     function WalletService(MY_CONST, $localStorage, $window){
 
-        this.getPln = function () {
-            return $localStorage.wallet.pln;
+        this.getPLN = function () {
+            return $localStorage.wallet.PLN;
         };
 
-        this.getEur = function () {
-            return $localStorage.wallet.eur;
+        this.getEUR = function () {
+            return $localStorage.wallet.EUR;
         };
 
-        this.getUsd = function(){
-            return $localStorage.wallet.usd;
+        this.getUSD = function(){
+            return $localStorage.wallet.USD;
         };
 
-        this.getGbp = function(){
-            return $localStorage.wallet.gbp;
+        this.getGBP = function(){
+            return $localStorage.wallet.GBP;
         };
 
 
-        this.buyEur = function(value){
-            $localStorage.wallet.pln -= (MY_CONST.EUR_BUY * value);
-            $localStorage.wallet.eur += value;
+        this.buy = function(code,rate,value){
+            $localStorage.wallet.PLN += (rate * value);
+            $localStorage.wallet[code] -= value;
         };
 
-        this.sellEur = function(value){
-            $localStorage.wallet.eur -= value;
-            $localStorage.wallet.pln += (MY_CONST.EUR_SEL * value);
+        this.sell = function(code,rate,value){
+            $localStorage.wallet[code] += value;
+            $localStorage.wallet.PLN -= (rate * value);
         };
 
         this.reset = function(){
