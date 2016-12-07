@@ -4,8 +4,8 @@
 (function(angular){
     "use strict";
     angular.module('cinkciarzTraining')
-        .controller('SecondController', SecondController);
-    function SecondController($localStorage){
+        .controller('InfoController', InfoController);
+    function InfoController($localStorage){
         var vm = this;
         vm.$storage = $localStorage;
 

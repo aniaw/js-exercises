@@ -1,8 +1,11 @@
 <section id="main">
     <div class="row page_wrapper">
-        <div class="relative"><h2>Mój portfel</h2><button ng-click="vm.getCurrencies()">Get currencies</button>
-            Currency: {{vm.rates.rates[0].bid}}
+        <div class="relative"><h2>Mój portfel</h2>
+
             <h3><span class="text-bold">PLN:</span> {{vm.pln | number:2}} zł</h3>
+            <h3><span class="text-bold">EUR:</span> {{vm.eur | number:2}} <i class="glyphicon glyphicon-eur"></i> </h3>
+            <h3><span class="text-bold">GBP:</span> {{vm.gbp | number:2}} <i class="glyphicon glyphicon-gbp"></i> </h3>
+            <h3><span class="text-bold">GBP:</span> {{vm.usd | number:2}} <i class="glyphicon glyphicon-usd"></i> </h3>
 
             <div class="right-btn">
                 <button ng-click="vm.reset()" class="btn btn-danger">Reset</button>
@@ -10,20 +13,15 @@
         </div>
         <div>
 
-            <label for="buy_eur">Buy euro</label>
-            <input type="text" name="buy_eur" ng-model="value" id="buy_eur">
-            <table class="my-table">
 
-                <tr>
-                    <td>EUR</td>
-                    <td><a href="#/buy/Eur"><button class="btn btn-primary"><p>{{vm.EUR_BUY}} zł</p> <p>Kup</p></button></a></td>
-                    <td><a href="#/sell/Eur"><button class="btn btn-info" ng-hide="vm.checkEur()"><p>{{vm.EUR_SEL}} zł</p><p>Sprzedaj</p></button> </a></td>
+            <h2>Kantor - kursy</h2>
+            <table class="my-table">
+                <tr ng-repeat="rate in vm.rates track by $index">
+                    <td>{{rate.data.code}}</td>
+                    <td><a ng-href="#/sell/{{rate.data.code}}"><button class="btn btn-info"><p>Sprzedaż</p><p>{{rate.data.rates[0].ask}} zł</p></button> </a></td>
+                    <td><a ng-href="#/buy/{{rate.data.code}}"><button class="btn btn-primary" ng-hide="vm.check(rate.data.code)"><p>Kupno</p><p>{{rate.data.rates[0].bid}} zł</p> </button></a></td>
                 </tr>
-                <tr>
-                    <td>GBP</td>
-                    <td><a href="#/buy/Gbp"><button class="btn btn-primary"><p>{{vm.EUR_BUY}} zł</p> <p>Kup</p></button></a></td>
-                    <td><a href="#/sell/Eur"><button class="btn btn-info" ng-hide="vm.checkEur()"><p>{{vm.EUR_SEL}} zł</p><p>Sprzedaj</p></button> </a></td>
-                </tr>
+
             </table>
 
 

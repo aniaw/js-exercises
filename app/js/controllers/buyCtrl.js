@@ -5,62 +5,93 @@
     "use strict";
     angular.module('cinkciarzTraining')
         .controller('BuyController', BuyController);
-    function BuyController($scope, $routeParams, WalletService, MY_CONST,$timeout) {
+    function BuyController($scope, $routeParams, WalletService, CurrenciesService, $timeout) {
         var vm = this;
         vm.currency = $routeParams.currency;
+        vm.message = '';
         vm.get = WalletService['get' + vm.currency]();
+        vm.rates = {};
         vm.showTitle = showTitle;
         vm.buy = buy;
         vm.divHide = false;
-        vm.pln = WalletService.getPln();
+        vm.pln = WalletService.getPLN();
         vm.validateValue = validateValue;
         vm.errorsArray = [];
-
         var clicked = false;
+        vm.back = back;
+        getCurrencies();
+
 
         ///////////////////////
         function showTitle() {
-            if ($routeParams.currency === 'Eur') {
+            if ($routeParams.currency === 'EUR') {
                 return 'Euro';
-            } else if ($routeParams.currency === 'Usd') {
-                return 'Dolary'
-            } else if ($routeParams.currency === 'Gbp') {
-                return 'Funty';
+            } else if ($routeParams.currency === 'USD') {
+                return 'Dolarów'
+            } else if ($routeParams.currency === 'GBP') {
+                return 'Funtów';
             }
         }
 
         function buy() {
             if (validateValue()) {
                 return;
-            }else {
+            } else {
                 var value = parseInt($scope.value, 10);
-                if(value * MY_CONST.EUR_BUY > vm.pln){
-                    if(!clicked) {
-                        vm.errorsArray.push('Insufficent funds');
+                if (value > vm.get) {
+                    if (!clicked) {
+                        vm.message ='Za mało środków';
                         $timeout(function () {
-                            vm.errorsArray = [];
+                            vm.message = '';
                             $scope.value = 0;
+                            vm.divHide = true;
                             clicked = false;
                         }, 5000);
-                        clicked = true;
                     }
-                }else {
-                    WalletService['buy' + vm.currency](value);
-                    vm.pln = WalletService.getPln();
+                } else {
+                    WalletService.buy(vm.rate.code, vm.rate.rates[0].bid, value);
+                    vm.pln = WalletService.getPLN();
                     vm.get = WalletService['get' + vm.currency]();
                 }
             }
         }
 
         function validateValue() {
-            if ($scope.value === undefined || $scope.value === '') {
+            if ($scope.value === undefined || $scope.value === '' || parseInt($scope.value,10) === 0) {
                 vm.divHide = false;
+                vm.message = 'Nie wpisałeś ilości';
+                $timeout(function () {
+                    vm.message = '';
+                    $scope.value = 0;
+                    vm.divHide = true;
+                }, 5000);
                 return true;
             } else {
                 vm.divHide = true;
                 return false;
             }
         }
+
+        function getCurrencies() {
+            CurrenciesService.getCurrencies()
+                .then(function (data) {
+                    vm.rates = data;
+                    for (var k in vm.rates) {
+                        if (vm.rates[k].data.code === vm.currency) {
+                            vm.rate = vm.rates[k].data;
+                        }
+                    }
+
+                }, function (error) {
+                    console.log('Error ', error);
+                })
+        }
+
+        function back(){
+            $window.history.back();
+        }
+
+
     }
 
 })(angular);
