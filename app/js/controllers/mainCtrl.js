@@ -10,6 +10,8 @@
         var vm = this;
         vm.storage = $localStorage;
 
+        vm.wallet = WalletService.getWallet();
+
         vm.pln = WalletService.getPLN();
         vm.eur = WalletService.getEUR();
         vm.usd = WalletService.getUSD();

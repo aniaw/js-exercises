@@ -4,6 +4,8 @@
 @color-white: #ffffff;
 @color-black: #000000;
 @side: top;
+@second-color: #BBB88A;
+@light-color: #FFFEEA;
 
 body {
   font-size: 16px;
@@ -18,11 +20,50 @@ body {
   background-color: @main-color;
 }
 
-.navbar {
-  min-height: 50px;
-  background-color: @color-white;
-  border: 0;
+.second {
+  background-color: @second-color;
 }
+
+.panel {
+  border:0;
+}
+.pan-heading {
+  .second;
+  border-color: @second-color;
+}
+
+.navbar {
+  min-height: 60px;
+  background-color: @light-color;
+  border: 0;
+
+}
+
+.cur-mixin {
+  display: block;
+  padding: 15px 10px 15px 10px;
+  background-color: @second-color;
+  color: @color-black;
+}
+
+.navbar-nav{
+    li {
+      padding: 0;
+      &.current {
+        a {
+          .cur-mixin;
+          &:hover,
+          &:focus,
+          &:active,
+          &:visited {
+            .cur-mixin
+          }
+
+        }
+      }
+    }
+  }
+
 
 .navbar-brand {
   vertical-align: middle;
@@ -30,11 +71,19 @@ body {
     font-size: 32px;
     margin-top: 0;
     color: @color-black;
+    .pd-side(10px,5px,10px,5px);
 
     .glyphicon-euro {
       font-weight: bolder;
       font-size: 35px;
+      animation: rotateY 2s linear infinite;
     }
+  }
+}
+
+.navbar-collapse {
+  li {
+    .pd-side(15px,5px,10px,5px);
   }
 }
 
@@ -52,11 +101,14 @@ body {
   .main;
   border-radius: 10px;
   width: 100%;
-  .pd-side(25px,35px,15px,35px);
+  .pd-side(25px,35px,35px,35px);
   -webkit-box-shadow: 3px 3px 1px 1px lightgrey;
   -moz-box-shadow: 33px 3px 1px 1px lightgrey;
   box-shadow: 3px 3px 1px 1px lightgrey;
+
 }
+
+
 
 .generate-pd-bottom(@n, @i: 0) when (@i =< @n) {
   .pd-bottom-@{i} {
@@ -67,14 +119,18 @@ body {
 
 .generate-pd-bottom(5);
 
+.page-header {
+  border-bottom-color: @color-black;
+}
+
 .text-bold {
   font-weight: bold;
 }
 
 .right-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 25px;
+  right: 20px;
 }
 
 .relative {
@@ -84,19 +140,25 @@ body {
 .td-mixin {
   .pd-side(5px,8px,5px,8px);
   text-align: center;
+  vertical-align: middle;
+  font-size: 16px;
 }
 
 .my-table {
-
-  .pd-side(5px,8px,5px,8px);
+  margin-left: 15px;
+  .pd-side(5px,8px,5px,28px);
 
   th {
     .td-mixin
   }
 
   td {
-   .td-mixin;
+    .td-mixin;
   }
+}
 
-
+@keyframes rotateY {
+  100% {
+    transform: rotate3d(0,1,0,360deg);
+  }
 }

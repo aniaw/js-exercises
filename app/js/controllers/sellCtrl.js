@@ -13,11 +13,9 @@
         vm.rates = {};
         vm.showTitle = showTitle;
         vm.sell = sell;
-        vm.divHide = false;
+        vm.divHide = true;
         vm.pln = WalletService.getPLN();
         vm.validateValue = validateValue;
-        vm.errorsArray = [];
-        var clicked = false;
         vm.message = '';
         vm.back = back;
         getCurrencies();
@@ -42,17 +40,12 @@
             }else {
                 var value = parseInt($scope.value, 10);
                 if(value * vm.rate.rates[0].ask > vm.pln){
-                    if(!clicked) {
-                        vm.divHide = false;
-                        vm.message = 'Za mało środków';
+                    vm.divHide = false;
+                    vm.message = 'Za mało środków';
                         $timeout(function () {
-                            vm.errorsArray = [];
-                            $scope.value = 0;
-                            clicked = false;
                             vm.divHide = true;
                         }, 5000);
-                        clicked = true;
-                    }
+
                 }else {
                     WalletService.sell(vm.rate.code, vm.rate.rates[0].ask,value);
                     vm.pln = WalletService.getPLN();
@@ -67,7 +60,7 @@
                 vm.message = 'Nie wpisałeś ilości';
                 $timeout(function () {
                     vm.message = '';
-                    $scope.value = 0;
+                    //$scope.value = 0;
                     vm.divHide = true;
                 }, 5000);
                 return true;

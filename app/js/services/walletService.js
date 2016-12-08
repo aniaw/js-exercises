@@ -6,8 +6,11 @@
     angular.module('cinkciarzTraining')
         .service('WalletService', WalletService);
 
-    function WalletService(MY_CONST, $localStorage, $window){
+    function WalletService($localStorage, $window){
 
+        this.getWallet = function(){
+            return $localStorage.wallet;
+        };
         this.getPLN = function () {
             return $localStorage.wallet.PLN;
         };

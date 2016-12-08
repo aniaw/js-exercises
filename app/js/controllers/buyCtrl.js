@@ -5,7 +5,7 @@
     "use strict";
     angular.module('cinkciarzTraining')
         .controller('BuyController', BuyController);
-    function BuyController($scope, $routeParams, WalletService, CurrenciesService, $timeout) {
+    function BuyController($scope, $routeParams, WalletService, CurrenciesService, $timeout,$window) {
         var vm = this;
         vm.currency = $routeParams.currency;
         vm.message = '';
@@ -13,11 +13,9 @@
         vm.rates = {};
         vm.showTitle = showTitle;
         vm.buy = buy;
-        vm.divHide = false;
+        vm.divHide = true;
         vm.pln = WalletService.getPLN();
         vm.validateValue = validateValue;
-        vm.errorsArray = [];
-        var clicked = false;
         vm.back = back;
         getCurrencies();
 
@@ -39,15 +37,12 @@
             } else {
                 var value = parseInt($scope.value, 10);
                 if (value > vm.get) {
-                    if (!clicked) {
+                        vm.divHide = false;
                         vm.message ='Za mało środków';
                         $timeout(function () {
                             vm.message = '';
-                            $scope.value = 0;
                             vm.divHide = true;
-                            clicked = false;
                         }, 5000);
-                    }
                 } else {
                     WalletService.buy(vm.rate.code, vm.rate.rates[0].bid, value);
                     vm.pln = WalletService.getPLN();
@@ -62,7 +57,6 @@
                 vm.message = 'Nie wpisałeś ilości';
                 $timeout(function () {
                     vm.message = '';
-                    $scope.value = 0;
                     vm.divHide = true;
                 }, 5000);
                 return true;
