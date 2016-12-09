@@ -1,61 +1,66 @@
 /**
  * Created by student on 06.12.16.
  */
-(function (angular) {
-    "use strict";
+(function ()
+{
+    'use strict';
     angular.module('cinkciarzTraining')
-        .controller('BuyController', BuyController);
-    function BuyController($scope, $routeParams, WalletService, CurrenciesService, $timeout,$window) {
+            .controller('BuyController', BuyController);
+    function BuyController($scope, $routeParams, WalletService, CurrenciesService, $timeout, $window)
+    {
         var vm = this;
         vm.currency = $routeParams.currency;
         vm.message = '';
-        vm.get = WalletService['get' + vm.currency]();
         vm.rates = {};
         vm.showTitle = showTitle;
         vm.buy = buy;
         vm.divHide = true;
-        vm.pln = WalletService.getPLN();
+        vm.wallet = WalletService.getWallet();
         vm.validateValue = validateValue;
         vm.back = back;
         getCurrencies();
 
 
         ///////////////////////
-        function showTitle() {
+        function showTitle()
+        {
             if ($routeParams.currency === 'EUR') {
                 return 'Euro';
             } else if ($routeParams.currency === 'USD') {
-                return 'Dolarów'
+                return 'Dolarów';
             } else if ($routeParams.currency === 'GBP') {
                 return 'Funtów';
             }
         }
 
-        function buy() {
+        function buy()
+        {
             if (validateValue()) {
                 return;
             } else {
                 var value = parseInt($scope.value, 10);
-                if (value > vm.get) {
-                        vm.divHide = false;
-                        vm.message ='Za mało środków';
-                        $timeout(function () {
-                            vm.message = '';
-                            vm.divHide = true;
-                        }, 5000);
+                if (value > vm.wallet[vm.currency]) {
+                    vm.divHide = false;
+                    vm.message = 'Za mało środków';
+                    $timeout(function ()
+                    {
+                        vm.message = '';
+                        vm.divHide = true;
+                    }, 5000);
                 } else {
                     WalletService.buy(vm.rate.code, vm.rate.rates[0].bid, value);
-                    vm.pln = WalletService.getPLN();
-                    vm.get = WalletService['get' + vm.currency]();
+                    vm.wallet = WalletService.getWallet();
                 }
             }
         }
 
-        function validateValue() {
-            if ($scope.value === undefined || $scope.value === '' || parseInt($scope.value,10) === 0) {
+        function validateValue()
+        {
+            if ($scope.value === undefined || $scope.value === '' || parseInt($scope.value, 10) === 0) {
                 vm.divHide = false;
                 vm.message = 'Nie wpisałeś ilości';
-                $timeout(function () {
+                $timeout(function ()
+                {
                     vm.message = '';
                     vm.divHide = true;
                 }, 5000);
@@ -66,26 +71,28 @@
             }
         }
 
-        function getCurrencies() {
+        function getCurrencies()
+        {
             CurrenciesService.getCurrencies()
-                .then(function (data) {
-                    vm.rates = data;
-                    for (var k in vm.rates) {
-                        if (vm.rates[k].data.code === vm.currency) {
-                            vm.rate = vm.rates[k].data;
+                    .then(function (data)
+                    {
+                        vm.rates = data;
+                        for (var k in vm.rates) {
+                            if (vm.rates[k].data.code === vm.currency) {
+                                vm.rate = vm.rates[k].data;
+                            }
                         }
-                    }
 
-                }, function (error) {
-                    console.log('Error ', error);
-                })
+                    }, function (error)
+                    {
+                        console.log('Error ', error);
+                    });
         }
 
-        function back(){
+        function back()
+        {
             $window.history.back();
         }
-
-
     }
 
-})(angular);
+})();

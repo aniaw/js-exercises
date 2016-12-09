@@ -8,5 +8,6 @@
         'ngRoute',
         'ngStorage',
         'ui.bootstrap'
+
     ]);
 })();

@@ -119,6 +119,15 @@ body {
 
 .generate-pd-bottom(5);
 
+.generate-mar-bottom(@n, @i: 0) when (@i =< @n) {
+  .mar-bottom-@{i} {
+    margin-bottom: (@i * 10px);
+  }
+  .generate-mar-bottom(@n, (@i + 1));
+}
+
+.generate-mar-bottom(5);
+
 .page-header {
   border-bottom-color: @color-black;
 }

@@ -1,48 +1,38 @@
 /**
  * Created by sunday on 12/2/16.
  */
-(function(angular){
-    "use strict";
+(function ()
+{
+    'use strict';
     angular.module('cinkciarzTraining')
-        .service('WalletService', WalletService);
+            .service('WalletService', WalletService);
 
-    function WalletService($localStorage, $window){
+    function WalletService($localStorage, $window)
+    {
 
-        this.getWallet = function(){
+        this.getWallet = function ()
+        {
             return $localStorage.wallet;
         };
-        this.getPLN = function () {
-            return $localStorage.wallet.PLN;
-        };
 
-        this.getEUR = function () {
-            return $localStorage.wallet.EUR;
-        };
-
-        this.getUSD = function(){
-            return $localStorage.wallet.USD;
-        };
-
-        this.getGBP = function(){
-            return $localStorage.wallet.GBP;
-        };
-
-
-        this.buy = function(code,rate,value){
+        this.buy = function (code, rate, value)
+        {
             $localStorage.wallet.PLN += (rate * value);
             $localStorage.wallet[code] -= value;
         };
 
-        this.sell = function(code,rate,value){
+        this.sell = function (code, rate, value)
+        {
             $localStorage.wallet[code] += value;
             $localStorage.wallet.PLN -= (rate * value);
         };
 
-        this.reset = function(){
+        this.reset = function ()
+        {
             $localStorage.$reset();
             $window.location.reload();
-        }
+        };
 
     }
 
-})(angular);
+})();

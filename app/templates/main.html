@@ -29,11 +29,11 @@
                     <th>Kupno</th>
                 </tr>
                 <tr ng-repeat="rate in vm.rates track by $index">
-                    <td><p>{{rate.data.code}}<p></p></td>
+                    <td><p class="text-bold">{{rate.data.code}}<p></p></td>
                     <td><p>{{rate.data.rates[0].ask}} PLN</p></td>
                     <td><p>{{rate.data.rates[0].bid}} PLN</p></td>
                     <td><a ng-href="#/sell/{{rate.data.code}}">
-                        <button class="btn btn-info"><p>Sprzedaż</p></button>
+                        <button class="btn btn-success"><p>Sprzedaż</p></button>
                     </a></td>
                     <td><a ng-href="#/buy/{{rate.data.code}}">
                         <button class="btn btn-primary" ng-hide="vm.check(rate.data.code)"><p>Kupno</p></button>
@@ -47,3 +47,13 @@
 
     </div>
 </section>
+<script type="text/ng-template" id="myModalConfirm.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Czy na pewno chcesz zrestartować portfel?</h3>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</script>
