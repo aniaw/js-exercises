@@ -2,13 +2,19 @@
  * Created by sunday on 12/1/16.
  */
 (function () {
+    'use strict';
     angular
         .module('cinkciarzTraining')
         .config(config);
 
     function config($routeProvider) {
         $routeProvider
-            .when('/', {
+            .when('/',{
+                templateUrl: '../templates/start.html',
+                controller: 'StartController',
+                controllerAs: 'vm'
+            })
+            .when('/main', {
             templateUrl: '../templates/main.html',
             controller: 'MainCtrl',
             controllerAs: 'vm'
@@ -29,8 +35,6 @@
                 controllerAs: 'vm'
             })
             .otherwise({ redirectTo: '/'});
-
-
 
     }
 })();

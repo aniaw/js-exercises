@@ -2,20 +2,21 @@
  * Created by sunday on 12/1/16.
  */
 
-(function (angular) {
-    "use strict";
+(function ()
+{
+    'use strict';
     angular.module('cinkciarzTraining')
-        .controller('MainCtrl', MainCtrl);
-    function MainCtrl($scope, WalletService,$window,$localStorage,CurrenciesService) {
+            .controller('MainCtrl', MainCtrl)
+            .controller('ModalConfirmController', ModalConfirmController);
+
+    ////////////////////////////////////
+
+    function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal)
+    {
         var vm = this;
         vm.storage = $localStorage;
 
-        vm.pln = WalletService.getPLN();
-        vm.eur = WalletService.getEUR();
-        vm.usd = WalletService.getUSD();
-        vm.gbp = WalletService.getGBP();
-
-
+        vm.wallet = WalletService.getWallet();
         vm.rates = {};
         getCurrencies();
 
@@ -24,27 +25,57 @@
         //////////////////////
 
 
-        function reset() {
-            var confirm = $window.confirm("Czy na pewno chcesz zresetowac portfel?");
-            if(confirm) {
+        function reset()
+        {
+            var modalInstance = $uibModal.open({
+                animation: true, templateUrl: 'myModalConfirm.html', controller: 'ModalConfirmController', controllerAs: 'vm', backdrop: 'static'
+
+            });
+
+            modalInstance.result.then(function ()
+            {
                 WalletService.reset();
-            }
+                $location.path('/');
+            }, function ()
+            {
+                return;
+            });
         }
 
-        function check(code){
+        function check(code)
+        {
             return $localStorage.wallet[code] <= 0;
         }
 
 
-
-        function getCurrencies(){
+        function getCurrencies()
+        {
             CurrenciesService.getCurrencies()
-                .then(function(data){
-                vm.rates = data;
-            }, function(error){
-                console.log('Error ',error);
-            })
+                    .then(function (data)
+                    {
+                        vm.rates = data;
+                    }, function (error)
+                    {
+                        console.log('Error ', error);
+                    });
         }
+
     }
 
-})(angular);
+    ///////////////////////////////////
+    function ModalConfirmController($uibModalInstance)
+    {
+        var vm = this;
+
+        vm.ok = function ()
+        {
+            $uibModalInstance.close();
+        };
+
+        vm.cancel = function ()
+        {
+            $uibModalInstance.dismiss();
+        };
+    }
+
+})();

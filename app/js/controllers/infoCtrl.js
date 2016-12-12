@@ -1,17 +1,20 @@
 /**
  * Created by sunday on 12/2/16.
  */
-(function(angular){
-    "use strict";
+(function ()
+{
+    'use strict';
     angular.module('cinkciarzTraining')
-        .controller('InfoController', InfoController);
-    function InfoController($localStorage){
+            .controller('InfoController', InfoController);
+
+    ///////////////////
+    function InfoController($localStorage)
+    {
         var vm = this;
         vm.$storage = $localStorage;
 
         vm.status = {
-            isFirstOpen: true,
-            isFirstDisabled: false
-        }
+            isFirstOpen: true, isFirstDisabled: false
+        };
     }
-})(angular);
+})();
