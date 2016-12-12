@@ -6734,6 +6734,11 @@ body {
 .second {
   background-color: #BBB88A;
 }
+@media only screen and (max-width: 425px) {
+  .col-xs-12 {
+    padding: 0 7px 0 7px;
+  }
+}
 .panel {
   border: 0;
 }
@@ -6779,10 +6784,24 @@ body {
   color: #000000;
   padding: 10px 5px 10px 5px;
 }
+@media only screen and (max-width: 767px) {
+  .navbar-brand h1 {
+    padding: 0 0 0 0;
+    font-size: 24px;
+  }
+}
 .navbar-brand h1 .glyphicon-euro {
   font-weight: bolder;
   font-size: 35px;
   animation: rotateY 2s linear infinite;
+}
+@media only screen and (max-width: 767px) {
+  .navbar-brand h1 .glyphicon-euro {
+    font-size: 28px;
+  }
+}
+.collapse.navbar-collapse {
+  border-color: transparent;
 }
 .navbar-collapse li {
   padding: 15px 5px 10px 5px;
@@ -6795,6 +6814,11 @@ body {
   -webkit-box-shadow: 3px 3px 1px 1px lightgrey;
   -moz-box-shadow: 33px 3px 1px 1px lightgrey;
   box-shadow: 3px 3px 1px 1px lightgrey;
+}
+@media only screen and (max-width: 425px) {
+  .page_wrapper {
+    padding: 25px 8px 35px 8px;
+  }
 }
 .pd-bottom-0 {
   padding-bottom: 0px;
@@ -6835,6 +6859,12 @@ body {
 .page-header {
   border-bottom-color: #000000;
 }
+@media only screen and (max-width: 560px) {
+  .page-header {
+    text-align: center;
+    margin-top: 20px;
+  }
+}
 .text-bold {
   font-weight: bold;
 }
@@ -6852,6 +6882,15 @@ body {
   vertical-align: middle;
   font-size: 16px;
 }
+.table-div {
+  display: block;
+  width: 100%;
+}
+@media only screen and (max-width: 560px) {
+  .table-div h2:nth-of-type(1) {
+    font-size: 1.7em;
+  }
+}
 .my-table {
   margin-left: 15px;
   padding: 5px 8px 5px 28px;
@@ -6867,6 +6906,64 @@ body {
   text-align: center;
   vertical-align: middle;
   font-size: 16px;
+}
+@media only screen and (max-width: 535px) {
+  .my-table {
+    padding: 5px 2px 5px 2px;
+    margin-left: 0;
+  }
+  .my-table thead {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .my-table td:nth-of-type(1) {
+    width: 100%;
+    display: block;
+    position: relative;
+    margin-top: 8px;
+    background-color: #BBB88A;
+  }
+  .my-table td:nth-of-type(2) {
+    width: 50%;
+    display: inline-block;
+    position: relative;
+  }
+  .my-table td:nth-of-type(2):before {
+    content: 'Sprzedaż';
+    font-weight: bold;
+  }
+  .my-table td:nth-of-type(3) {
+    width: 50%;
+    display: inline-block;
+    position: relative;
+  }
+  .my-table td:nth-of-type(3):before {
+    content: 'Kupno';
+    font-weight: bold;
+  }
+  .my-table td:nth-of-type(4) {
+    width: 50%;
+    display: inline-block;
+    position: relative;
+  }
+  .my-table td:nth-of-type(5) {
+    width: 50%;
+    display: inline-block;
+    position: relative;
+  }
+}
+.animate-hide {
+  transition: all linear 0.5s;
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  border: 1px solid black;
+}
+.animate-hide.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
 }
 @keyframes rotateY {
   100% {
