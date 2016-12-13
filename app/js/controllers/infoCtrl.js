@@ -4,17 +4,18 @@
 (function ()
 {
     'use strict';
-    angular.module('cinkciarzTraining')
-            .controller('InfoController', InfoController);
 
-    ///////////////////
-    function InfoController($localStorage)
+    function InfoController()
     {
         var vm = this;
-        vm.$storage = $localStorage;
 
         vm.status = {
             isFirstOpen: true, isFirstDisabled: false
         };
     }
+
+    angular.module('cinkciarzTraining')
+            .controller('InfoController', InfoController);
+
+
 })();

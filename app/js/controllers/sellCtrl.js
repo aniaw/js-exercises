@@ -4,24 +4,19 @@
 (function ()
 {
     'use strict';
-    angular.module('cinkciarzTraining')
-            .controller('SellController', SellController);
-    function SellController($scope, $routeParams, WalletService, CurrenciesService, $timeout, $window)
+
+    function SellController($routeParams, WalletService, CurrenciesService, $timeout, $window, ValidateService)
     {
         var vm = this;
         vm.currency = $routeParams.currency;
         vm.rates = {};
-        vm.showTitle = showTitle;
-        vm.sell = sell;
-        vm.divShow = false;
+        vm.value = 0;
+        vm.divShow = ValidateService.getShow();
         vm.wallet = WalletService.getWallet();
-        vm.validateValue = validateValue;
         vm.message = '';
-        vm.back = back;
-        getCurrencies();
 
+        ////////////////////
 
-        ///////////////////////
         function showTitle()
         {
             if ($routeParams.currency === 'EUR') {
@@ -35,41 +30,26 @@
 
         function sell()
         {
-            if (validateValue()) {
+            if (ValidateService.validate(vm.value,vm.message)) {
                 return;
-            } else {
-                var value = parseInt($scope.value, 10);
-                if (value * vm.rate.rates[0].ask > vm.wallet.PLN) {
-                    vm.divShow = true;
-                    vm.message = 'Za mało środków';
-                    $timeout(function ()
-                    {
-                        vm.divShow = false;
-                    }, 5000);
-
-                } else {
-                    WalletService.sell(vm.rate.code, vm.rate.rates[0].ask, value);
-                    vm.wallet = WalletService.getWallet();
-                }
             }
-        }
 
-        function validateValue()
-        {
-            if ($scope.value === undefined || $scope.value === '' || parseInt($scope.value, 10) === 0) {
+            var value = parseInt(vm.value, 10);
+            if (value * vm.rate.rates[0].ask > vm.wallet.PLN) {
                 vm.divShow = true;
-                vm.message = 'Nie wpisałeś ilości';
+                vm.message = 'Za mało środków';
                 $timeout(function ()
                 {
-                    vm.message = '';
                     vm.divShow = false;
                 }, 5000);
-                return true;
+
             } else {
-                vm.divShow = false;
-                return false;
+                WalletService.sell(vm.rate.code, vm.rate.rates[0].ask, value);
+                vm.wallet = WalletService.getWallet();
             }
+
         }
+
 
         function getCurrencies()
         {
@@ -93,6 +73,20 @@
         {
             $window.history.back();
         }
+
+
+        vm.showTitle = showTitle;
+        vm.sell = sell;
+        //vm.validateValue = validateValue;
+        vm.back = back;
+        getCurrencies();
+
+
+        ///////////////////////
+
     }
 
+
+    angular.module('cinkciarzTraining')
+            .controller('SellController', SellController);
 })();

@@ -50,7 +50,6 @@
 
                 });
                 $location.path('/main');
-                console.log('Modal dismissed');
             });
         };
 
