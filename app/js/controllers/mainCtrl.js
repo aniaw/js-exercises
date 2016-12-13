@@ -5,30 +5,17 @@
 (function ()
 {
     'use strict';
-    angular.module('cinkciarzTraining')
-            .controller('MainCtrl', MainCtrl)
-            .controller('ModalConfirmController', ModalConfirmController);
-
-    ////////////////////////////////////
-
     function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal)
     {
         var vm = this;
-        vm.storage = $localStorage;
-
         vm.wallet = WalletService.getWallet();
         vm.rates = {};
-        getCurrencies();
 
-        vm.reset = reset;
-        vm.check = check;
-        //////////////////////
-
-
+        ////////////////////////////////
         function reset()
         {
             var modalInstance = $uibModal.open({
-                animation: true, templateUrl: 'myModalConfirm.html', controller: 'ModalConfirmController', controllerAs: 'vm', backdrop: 'static'
+                animation: true, templateUrl: '../templates/myModalConfirm.html', controller: 'ModalConfirmController', controllerAs: 'vm', backdrop: 'static'
 
             });
 
@@ -60,22 +47,18 @@
                     });
         }
 
+        ///////////////////////////////
+
+        getCurrencies();
+
+        vm.reset = reset;
+        vm.check = check;
+        //////////////////////
+
+
+
     }
-
-    ///////////////////////////////////
-    function ModalConfirmController($uibModalInstance)
-    {
-        var vm = this;
-
-        vm.ok = function ()
-        {
-            $uibModalInstance.close();
-        };
-
-        vm.cancel = function ()
-        {
-            $uibModalInstance.dismiss();
-        };
-    }
+    angular.module('cinkciarzTraining')
+            .controller('MainCtrl', MainCtrl);
 
 })();

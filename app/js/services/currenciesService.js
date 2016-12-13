@@ -4,7 +4,6 @@
 (function ()
 {
     'use strict';
-    angular.module('cinkciarzTraining').factory('CurrenciesService', CurrenciesService);
 
     function CurrenciesService($http, $q)
     {
@@ -12,7 +11,6 @@
         return {
             getCurrencies: function ()
             {
-                var deffered = $q.defer();
                 var urls = [{url: 'https://api.nbp.pl/api/exchangerates/rates/c/usd/today/'}, {url: 'https://api.nbp.pl/api/exchangerates/rates/c/eur/today/'},
                     {url: 'https://api.nbp.pl/api/exchangerates/rates/c/gbp/today/'}];
 
@@ -21,19 +19,15 @@
                 {
                     urlsCalls.push($http.get(url.url));
                 });
-                $q.all(urlsCalls)
-                        .then(function (result)
-                        {
-                            deffered.resolve(result);
-                        }, function (error)
-                        {
-                            deffered.reject(error);
-                        });
+                return $q.all(urlsCalls);
 
-                return deffered.promise;
             }
 
         };
     }
+
+    angular.module('cinkciarzTraining').factory('CurrenciesService', CurrenciesService);
+
+
 
 })();

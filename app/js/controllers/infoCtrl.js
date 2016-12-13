@@ -4,10 +4,7 @@
 (function ()
 {
     'use strict';
-    angular.module('cinkciarzTraining')
-            .controller('InfoController', InfoController);
 
-    ///////////////////
     function InfoController()
     {
         var vm = this;
@@ -16,4 +13,9 @@
             isFirstOpen: true, isFirstDisabled: false
         };
     }
+
+    angular.module('cinkciarzTraining')
+            .controller('InfoController', InfoController);
+
+
 })();
