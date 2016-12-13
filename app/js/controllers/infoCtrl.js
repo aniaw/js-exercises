@@ -8,10 +8,9 @@
             .controller('InfoController', InfoController);
 
     ///////////////////
-    function InfoController($localStorage)
+    function InfoController()
     {
         var vm = this;
-        vm.$storage = $localStorage;
 
         vm.status = {
             isFirstOpen: true, isFirstDisabled: false

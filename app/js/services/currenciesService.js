@@ -13,8 +13,8 @@
             getCurrencies: function ()
             {
                 var deffered = $q.defer();
-                var urls = [{url: 'http://api.nbp.pl/api/exchangerates/rates/c/usd/today/'}, {url: 'http://api.nbp.pl/api/exchangerates/rates/c/eur/today/'},
-                    {url: 'http://api.nbp.pl/api/exchangerates/rates/c/gbp/today/'}];
+                var urls = [{url: 'https://api.nbp.pl/api/exchangerates/rates/c/usd/today/'}, {url: 'https://api.nbp.pl/api/exchangerates/rates/c/eur/today/'},
+                    {url: 'https://api.nbp.pl/api/exchangerates/rates/c/gbp/today/'}];
 
                 var urlsCalls = [];
                 angular.forEach(urls, function (url)
@@ -32,7 +32,6 @@
 
                 return deffered.promise;
             }
-
 
         };
     }
