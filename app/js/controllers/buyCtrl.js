@@ -4,16 +4,17 @@
 (function ()
 {
     'use strict';
-    function BuyController($routeParams, WalletService, CurrenciesService, $timeout, $window,ValidateService)
+    function BuyController($routeParams, WalletService, CurrenciesService, $timeout, $window, ValidateService)
     {
 
         var vm = this;
         vm.currency = $routeParams.currency;
-        vm.message = '';
         vm.rates = {};
         vm.value = 0;
-        vm.divShow = false;
         vm.wallet = WalletService.getWallet();
+        vm.validObject = {
+            show: false, message: ''
+        };
 
         ///////////////////
 
@@ -30,20 +31,22 @@
 
         function buy()
         {
-            if (ValidateService.validate(vm.value,vm.divShow,vm.message)) {
-                vm.divShow = ValidateService.getShow();
+            if (ValidateService.validateEmpty(vm.value)) {
+                vm.validObject = ValidateService.getValues(true, 'Nie wpisałeś ilości');
+                $timeout(function ()
+                {
+                    vm.validObject = ValidateService.getValues(false, '');
+                }, 3000);
                 return;
             }
 
             var value = parseInt(vm.value, 10);
             if (value > vm.wallet[vm.currency]) {
-                vm.divShow = true;
-                vm.message = 'Za mało środków';
+                vm.validObject = ValidateService.getValues(true, 'Za mało środków');
                 $timeout(function ()
                 {
-                    vm.message = '';
-                    vm.divShow = false;
-                }, 5000);
+                    vm.validObject = ValidateService.getValues(false, '');
+                }, 3000);
             } else {
                 WalletService.buy(vm.rate.code, vm.rate.rates[0].bid, value);
                 vm.wallet = WalletService.getWallet();
@@ -80,23 +83,19 @@
                             }
                         }
 
-                    }, function (error)
+                    })
+                    .catch(function (error)
                     {
-                        console.log('Error ', error);
+                        console.log('Error', error);
                     });
         }
 
-        function back()
-        {
-            $window.history.back();
-        }
 
         ////////////////////////
 
         vm.showTitle = showTitle;
         vm.buy = buy;
         vm.validateValue = validateValue;
-        vm.back = back;
         getCurrencies();
 
     }
