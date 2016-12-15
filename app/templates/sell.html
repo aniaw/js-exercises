@@ -15,19 +15,20 @@
 
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label for="buy" class="control-label col-md-3">Podaj ilośc: </label>
-                        <div class="col-md-5"><input type="text" ng-model="vm.value" id="buy" class="form-control"></div>
+                        <label class="control-label col-md-3">Podaj ilośc: </label>
+                        <div class="col-md-5"><input type="text" ng-model="vm.value" class="form-control"></div>
                     </div>
                 </div>
 
-                <div ng-show="vm.divShow" class="alert alert-danger animate-hide">
+                <div ng-show="vm.validObject.show" class="alert alert-danger animate-hide">
 
-                    {{vm.message}}
+                    {{vm.validObject.message}}
                 </div>
 
-                <button class="btn btn-success" ng-click="vm.sell()">Kup</button>
+
+                <button class="btn btn-success" ng-click="vm.sell()" id="sell">Kup</button>
                 &nbsp;&nbsp;
-                <button class="btn btn-info" ng-click="vm.back()">Powrót</button>
+                <button class="btn btn-info mar-left" back-button ng-click="backToMain()">Powrót</button>
             </div>
         </div>
     </div>

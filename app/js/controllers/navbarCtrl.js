@@ -4,16 +4,21 @@
 (function(){
     'use strict';
 
-    function NavbarController(){
+    function NavbarController($location){
         var vm = this;
         vm.navCollapsed = true;
 
         function toggleCollapse(){
             vm.navCollapsed = !vm.navCollapsed;
-            console.log(vm.navCollapsed);
+        }
+
+        function isActive(location){
+            var active = (location === $location.path());
+            return active;
         }
 
         vm.toggleCollapse = toggleCollapse;
+        vm.isActive = isActive;
 
     }
 

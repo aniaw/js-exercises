@@ -22,13 +22,13 @@
                     </div>
                 </div>
 
-                <div ng-show="vm.divShow" class="alert alert-danger animate-hide">
+                <div ng-show="vm.validObject.show" class="alert alert-danger animate-hide">
 
-                    {{vm.message}}
+                    {{vm.validObject.message}}
                 </div>
                 <div><button class="btn btn-success" ng-click="vm.buy()">Sprzedaj</button>
                 &nbsp;&nbsp;
-                <button class="btn btn-info" ng-click="vm.back()">Powrót</button></div>
+                <button class="btn btn-info mar-left" back-button ng-click="backToMain()">Powrót</button></div>
             </div>
         </div>
     </div>

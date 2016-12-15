@@ -15,7 +15,7 @@
         function reset()
         {
             var modalInstance = $uibModal.open({
-                animation: true, templateUrl: '../templates/myModalConfirm.html', controller: 'ModalConfirmController', controllerAs: 'vm', backdrop: 'static'
+                animation: true, templateUrl: 'myModalConfirm.html', controller: 'ModalConfirmController', controllerAs: 'vm', backdrop: 'static'
 
             });
 

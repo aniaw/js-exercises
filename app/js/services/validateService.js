@@ -1,39 +1,34 @@
 /**
  * Created by student on 13.12.16.
  */
-(function(angular){
+(function (angular)
+{
     'use strict';
 
-    function ValidateService($timeout){
+    function ValidateService()
+    {
 
-        this.show = false;
-
-        this.getShow = function(){
-            console.log('show',this.show);
-            return this.show;
+        this.validObject = {
+            show: false, message: ''
         };
 
-        this.validate = function(value,message){
-            if (value === undefined || value === '' || parseInt(value, 10) === 0) {
-                this.show = true;
-                message = 'Nie wpisałeś ilości';
-                $timeout(function ()
-                {
-                    message = '';
-                    this.show = false;
-                }, 5000);
-                return true;
-            } else {
-                this.show = false;
-                return false;
-            }
+        this.validateEmpty = function (value)
+        {
+
+            return !!(value === undefined || value === '' || parseInt(value, 10) === 0);
+        };
+
+        this.getValues = function (show, message)
+        {
+            this.validObject.show = show;
+            this.validObject.message = message;
+            return this.validObject;
         };
 
     }
 
     angular.module('cinkciarzTraining')
-        .service('ValidateService', ValidateService);
-
+            .service('ValidateService', ValidateService);
 
 
 })(angular);

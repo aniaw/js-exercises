@@ -11,9 +11,11 @@
         vm.currency = $routeParams.currency;
         vm.rates = {};
         vm.value = 0;
-        vm.divShow = ValidateService.getShow();
+
         vm.wallet = WalletService.getWallet();
-        vm.message = '';
+        vm.validObject = {
+            show: false, message: ''
+        };
 
         ////////////////////
 
@@ -30,18 +32,22 @@
 
         function sell()
         {
-            if (ValidateService.validate(vm.value,vm.message)) {
+            if (ValidateService.validateEmpty(vm.value)) {
+                vm.validObject = ValidateService.getValues(true, 'Nie wpisałeś ilości');
+                $timeout(function ()
+                {
+                    vm.validObject = ValidateService.getValues(false, '');
+                }, 3000);
                 return;
             }
 
             var value = parseInt(vm.value, 10);
             if (value * vm.rate.rates[0].ask > vm.wallet.PLN) {
-                vm.divShow = true;
-                vm.message = 'Za mało środków';
+                vm.validObject = ValidateService.getValues(true, 'Za mało środków');
                 $timeout(function ()
                 {
-                    vm.divShow = false;
-                }, 5000);
+                    vm.validObject = ValidateService.getValues(false, '');
+                }, 3000);
 
             } else {
                 WalletService.sell(vm.rate.code, vm.rate.rates[0].ask, value);
@@ -49,7 +55,6 @@
             }
 
         }
-
 
         function getCurrencies()
         {
@@ -63,22 +68,16 @@
                             }
                         }
 
-                    }, function (error)
+                    })
+                    .catch(function (error)
                     {
                         console.log('Error ', error);
                     });
         }
 
-        function back()
-        {
-            $window.history.back();
-        }
-
 
         vm.showTitle = showTitle;
         vm.sell = sell;
-        //vm.validateValue = validateValue;
-        vm.back = back;
         getCurrencies();
 
 

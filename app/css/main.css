@@ -159,6 +159,9 @@ body {
   vertical-align: middle;
   font-size: 16px;
 }
+.mar-left {
+  margin-left: 30px;
+}
 .table-div {
   display: block;
   width: 100%;
