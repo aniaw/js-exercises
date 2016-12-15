@@ -5,11 +5,11 @@
     'use strict';
 
     function NavbarController($location){
-        var vm = this;
-        vm.navCollapsed = true;
+        var ctrl = this;
+        ctrl.navCollapsed = true;
 
         function toggleCollapse(){
-            vm.navCollapsed = !vm.navCollapsed;
+            ctrl.navCollapsed = !ctrl.navCollapsed;
         }
 
         function isActive(location){
@@ -17,8 +17,8 @@
             return active;
         }
 
-        vm.toggleCollapse = toggleCollapse;
-        vm.isActive = isActive;
+        ctrl.toggleCollapse = toggleCollapse;
+        ctrl.isActive = isActive;
 
     }
 

@@ -167,7 +167,7 @@ body {
 }
 
 .td-mixin {
-  .pd-side(5px, 8px, 5px, 8px);
+  .pd-side(5px, 10px, 10px, 8px);
   text-align: center;
   vertical-align: middle;
   font-size: 16px;
@@ -194,11 +194,13 @@ body {
   .pd-side(5px, 8px, 5px, 28px);
 
   th {
-    .td-mixin
+    .td-mixin;
+    background-color: darken(@main-color,10%);
   }
 
   td {
     .td-mixin;
+    border-bottom: 1px solid black;
   }
 
   .responsive(535px, {

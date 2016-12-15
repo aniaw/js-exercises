@@ -5,17 +5,15 @@
 {
     'use strict';
 
-    function SellController($routeParams, WalletService, CurrenciesService, $timeout, $window, ValidateService)
+    function SellController($routeParams, WalletService, CurrenciesService, $timeout, ValidateService)
     {
-        var vm = this;
-        vm.currency = $routeParams.currency;
-        vm.rates = {};
-        vm.value = 0;
+        var ctrl = this;
+        ctrl.currency = $routeParams.currency;
+        ctrl.rates = {};
+        ctrl.value = 0;
 
-        vm.wallet = WalletService.getWallet();
-        vm.validObject = {
-            show: false, message: ''
-        };
+        ctrl.wallet = WalletService.getWallet();
+        ctrl.errorMessage = '';
 
         ////////////////////
 
@@ -32,26 +30,34 @@
 
         function sell()
         {
-            if (ValidateService.validateEmpty(vm.value)) {
-                vm.validObject = ValidateService.getValues(true, 'Nie wpisałeś ilości');
+            if (ValidateService.validateEmpty(ctrl.value)) {
+                ctrl.errorMessage = ValidateService.getValues('Nie wpisałeś ilości');
                 $timeout(function ()
                 {
-                    vm.validObject = ValidateService.getValues(false, '');
+                    ctrl.errorMessage = ValidateService.getValues('');
                 }, 3000);
                 return;
             }
 
-            var value = parseInt(vm.value, 10);
-            if (value * vm.rate.rates[0].ask > vm.wallet.PLN) {
-                vm.validObject = ValidateService.getValues(true, 'Za mało środków');
+            if(ctrl.value < 0){
+                ctrl.errorMessage = ValidateService.getValues('Wpisałeś wartość poniżej zera');
                 $timeout(function ()
                 {
-                    vm.validObject = ValidateService.getValues(false, '');
+                    ctrl.errorMessage = ValidateService.getValues('');
+                }, 3000);
+                return;
+            }
+            if (ctrl.value > ctrl.wallet[ctrl.currency]) {
+                ctrl.validObject = ValidateService.getValues(true, 'Za mało środków');
+                $timeout(function ()
+                {
+                    ctrl.validObject = ValidateService.getValues(false, '');
                 }, 3000);
 
             } else {
-                WalletService.sell(vm.rate.code, vm.rate.rates[0].ask, value);
-                vm.wallet = WalletService.getWallet();
+                WalletService.sell(ctrl.rate.code, ctrl.rate.sell, ctrl.value);
+                ctrl.wallet = WalletService.getWallet();
+                ctrl.value = 0;
             }
 
         }
@@ -62,11 +68,12 @@
                     .then(function (data)
                     {
                         var rates = data;
-                        for (var k in rates) {
-                            if (rates[k].data.code === vm.currency) {
-                                vm.rate = rates[k].data;
+                        for (var key in rates) {
+                            if (rates[key].code === ctrl.currency) {
+                                ctrl.rate = rates[key];
                             }
                         }
+                        ctrl.sellCost = sellCost;
 
                     })
                     .catch(function (error)
@@ -75,9 +82,15 @@
                     });
         }
 
+        function sellCost()
+        {
+            return (ctrl.value * ctrl.rate.sell) > 0 ? (ctrl.value * ctrl.rate.sell) : 0;
+        }
 
-        vm.showTitle = showTitle;
-        vm.sell = sell;
+
+        ctrl.showTitle = showTitle;
+        ctrl.sell = sell;
+
         getCurrencies();
 
 

@@ -6,14 +6,14 @@
 
     function ModalConfirmController($uibModalInstance)
     {
-        var vm = this;
+        var ctrl = this;
 
-        vm.ok = function ()
+        ctrl.ok = function ()
         {
             $uibModalInstance.close();
         };
 
-        vm.cancel = function ()
+        ctrl.cancel = function ()
         {
             $uibModalInstance.dismiss();
         };

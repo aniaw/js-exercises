@@ -7,9 +7,9 @@
 
     function InfoController()
     {
-        var vm = this;
+        var ctrl = this;
 
-        vm.status = {
+        ctrl.status = {
             isFirstOpen: true, isFirstDisabled: false
         };
     }

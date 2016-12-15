@@ -7,29 +7,26 @@
     'use strict';
     function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal)
     {
-        var vm = this;
-        vm.wallet = WalletService.getWallet();
-        vm.rates = {};
+        var ctrl = this;
+        ctrl.wallet = WalletService.getWallet();
+        ctrl.rates = {};
 
         ////////////////////////////////
         function reset()
         {
             var modalInstance = $uibModal.open({
-                animation: true, templateUrl: 'myModalConfirm.html', controller: 'ModalConfirmController', controllerAs: 'vm', backdrop: 'static'
+                animation: true, templateUrl: 'myModalConfirm.html', controller: 'ModalConfirmController', controllerAs: 'ctrl', backdrop: 'static'
 
             });
 
             modalInstance.result.then(function ()
             {
-                WalletService.reset();
                 $location.path('/');
-            }, function ()
-            {
-                return;
+                WalletService.reset();
             });
         }
 
-        function check(code)
+        function checkCurrencyWallet(code)
         {
             return $localStorage.wallet[code] <= 0;
         }
@@ -40,8 +37,9 @@
             CurrenciesService.getCurrencies()
                     .then(function (data)
                     {
-                        vm.rates = data;
-                    }, function (error)
+                        ctrl.rates = data;
+                    })
+                    .catch(function (error)
                     {
                         console.log('Error ', error);
                     });
@@ -51,11 +49,9 @@
 
         getCurrencies();
 
-        vm.reset = reset;
-        vm.check = check;
+        ctrl.reset = reset;
+        ctrl.checkCurrencyWallet = checkCurrencyWallet;
         //////////////////////
-
-
 
     }
     angular.module('cinkciarzTraining')

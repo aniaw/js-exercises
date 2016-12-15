@@ -1,7 +1,7 @@
-<nav class="navbar navbar-default" role="navigation" ng-controller="NavbarController as vm">
+<nav class="navbar navbar-default" role="navigation" ng-controller="NavbarController as navbarCtrl">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-click="vm.toggleCollapse()">
+            <button type="button" class="navbar-toggle" ng-click="navbarCtrl.toggleCollapse()">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -12,10 +12,10 @@
             </a>
         </div>
 
-        <div class="collapse navbar-collapse" ng-class="!vm.navCollapsed && 'in'">
+        <div class="collapse navbar-collapse" ng-class="!navbarCtrl.navCollapsed && 'in'">
             <ul class="nav navbar-nav">
-                <li ng-class="{current: vm.isActive('/main')}"><a href="#/main" ng-click="vm.toggleCollapse()">Home <span class="sr-only"></span> </a></li>
-                <li ng-class="{current: vm.isActive('/info')}"><a href="#/info" ng-click="vm.toggleCollapse()">Information</a></li>
+                <li ng-class="{current: navbarCtrl.isActive('/main')}"><a href="#/main" ng-click="navbarCtrl.toggleCollapse()">Home <span class="sr-only"></span> </a></li>
+                <li ng-class="{current: navbarCtrl.isActive('/info')}"><a href="#/info" ng-click="navbarCtrl.toggleCollapse()">Information</a></li>
             </ul>
         </div>
     </div>

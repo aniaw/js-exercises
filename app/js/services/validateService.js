@@ -8,21 +8,17 @@
     function ValidateService()
     {
 
-        this.validObject = {
-            show: false, message: ''
-        };
+       var errorMessage = '';
 
         this.validateEmpty = function (value)
         {
-
-            return !!(value === undefined || value === '' || parseInt(value, 10) === 0);
+            return !!(value === undefined || value === '' || parseFloat(value) === 0.0);
         };
 
-        this.getValues = function (show, message)
+        this.getValues = function (message)
         {
-            this.validObject.show = show;
-            this.validObject.message = message;
-            return this.validObject;
+            errorMessage = message;
+            return errorMessage;
         };
 
     }
