@@ -4,26 +4,24 @@
 (function ()
 {
     'use strict';
-    angular.module('cinkciarzTraining')
-            .directive('backButton', backButtonDirective);
 
     function backButtonDirective($location)
     {
-        function linkFn(scope, elem, attrs)
+        function BackController($scope)
         {
-            function goBack()
+            $scope.backToMain = function ()
             {
-                $location.path('#/');
-                scope.$apply();
-            }
-
-            elem.bind('click', goBack);
+                $location.path('/main');
+            };
         }
 
         return {
-            restrict: 'A', link: linkFn
+            restrict: 'A', controller: BackController
         };
 
     }
+
+    angular.module('cinkciarzTraining')
+            .directive('backButton', backButtonDirective);
 
 })();
