@@ -11,10 +11,11 @@
         ctrl.startVal = undefined;
 
 
-        ctrl.open = function (size)
+        ctrl.open = function ()
         {
             var modalInstance = $uibModal.open({
-                animation: true, templateUrl: 'myModalContent.html', controller: 'ModalController', controllerAs: 'ctrl', backdrop: 'static', size: size
+                animation: true, templateUrl: 'myModalContent.html', controller: 'ModalController', controllerAs: 'ctrl', backdrop: 'static',
+                windowClass: 'app-modal-window'
 
             });
 

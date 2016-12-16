@@ -9,7 +9,7 @@
     {
         var ctrl = this;
         ctrl.wallet = WalletService.getWallet();
-        ctrl.rates = {};
+        ctrl.rates = [];
 
         ////////////////////////////////
         function reset()

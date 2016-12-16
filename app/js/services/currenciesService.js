@@ -12,7 +12,7 @@
             getCurrencies: function ()
             {
                 var rates = [];
-                var currency = {};
+
                 var urls = [{url: 'https://api.nbp.pl/api/exchangerates/rates/c/usd/today/'}, {url: 'https://api.nbp.pl/api/exchangerates/rates/c/eur/today/'},
                     {url: 'https://api.nbp.pl/api/exchangerates/rates/c/gbp/today/'}];
 
@@ -24,6 +24,7 @@
                 return $q.all(urlsCalls)
                         .then(function(result){
                             angular.forEach(result, function(rate){
+                                var currency = {};
                                 currency.code = rate.data.code;
                                 currency.sell = rate.data.rates[0].bid;
                                 currency.buy = rate.data.rates[0].ask;

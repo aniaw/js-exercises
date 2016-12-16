@@ -68,9 +68,9 @@
                     .then(function (data)
                     {
                         ctrl.rates = data;
-                        for (var k in ctrl.rates) {
-                            if (ctrl.rates[k].code === ctrl.currency) {
-                                ctrl.rate = ctrl.rates[k];
+                        for (var key in ctrl.rates) {
+                            if (ctrl.rates[key].code === ctrl.currency) {
+                                ctrl.rate = ctrl.rates[key];
 
                             }
                         }

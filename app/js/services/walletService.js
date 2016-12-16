@@ -4,8 +4,6 @@
 (function ()
 {
     'use strict';
-    angular.module('cinkciarzTraining')
-            .service('WalletService', WalletService);
 
     function WalletService($localStorage)
     {
@@ -33,5 +31,10 @@
         };
 
     }
+
+
+    angular.module('cinkciarzTraining')
+            .service('WalletService', WalletService);
+
 
 })();

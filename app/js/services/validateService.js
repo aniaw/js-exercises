@@ -1,7 +1,7 @@
 /**
  * Created by student on 13.12.16.
  */
-(function (angular)
+(function ()
 {
     'use strict';
 
@@ -27,4 +27,4 @@
             .service('ValidateService', ValidateService);
 
 
-})(angular);
+})();
