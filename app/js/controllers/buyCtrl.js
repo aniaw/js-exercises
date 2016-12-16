@@ -4,7 +4,7 @@
 (function ()
 {
     'use strict';
-    function BuyController($routeParams, WalletService, CurrenciesService, $timeout, ValidateService)
+    function BuyController($routeParams, WalletService, RandomCurrencyService, $timeout, ValidateService)
     {
 
         var ctrl = this;
@@ -38,7 +38,7 @@
                 return;
             }
 
-            if(ctrl.value < 0){
+            if (ctrl.value < 0) {
                 ctrl.errorMessage = ValidateService.getValues('Wpisałeś wartość poniżej zera');
                 $timeout(function ()
                 {
@@ -64,30 +64,22 @@
 
         function getCurrencies()
         {
-            CurrenciesService.getCurrencies()
-                    .then(function (data)
-                    {
-                        ctrl.rates = data;
-                        for (var key in ctrl.rates) {
-                            if (ctrl.rates[key].code === ctrl.currency) {
-                                ctrl.rate = ctrl.rates[key];
 
-                            }
-                        }
-                        ctrl.buyCost = function ()
-                        {
-                            return (ctrl.value * ctrl.rate.buy) > 0 ? (ctrl.value * ctrl.rate.buy) : 0;
-                        };
+            ctrl.rates = RandomCurrencyService.getRandomRates();
+            angular.forEach(ctrl.rates,function(rate){
+                if (rate.code === ctrl.currency) {
+                    ctrl.rate = rate;
+                }
+            });
 
-                    })
-                    .catch(function (error)
-                    {
-                        console.log('Error', error);
-                    });
+            ctrl.buyCost = function ()
+            {
+                return (ctrl.value * ctrl.rate.buy) > 0 ? (ctrl.value * ctrl.rate.buy) : 0;
+            };
+
         }
 
-
-        ////////////////////////
+////////////////////////
 
         ctrl.showTitle = showTitle;
         ctrl.buy = buy;

@@ -96,8 +96,7 @@ body {
       font-weight: bolder;
       font-size: 35px;
       animation: rotateY 2s linear infinite;
-      .responsive(767px,{ font-size: 28px;
-      })
+      .responsive(767px, { font-size: 28px; })
     }
   }
 }
@@ -146,10 +145,7 @@ body {
 
 .page-header {
   border-bottom-color: @color-black;
-  .responsive(560px, {
-    text-align: center;
-    margin-top: 20px;
-  })
+  .responsive(560px, { text-align: center; margin-top: 20px; })
 }
 
 .text-bold {
@@ -181,44 +177,46 @@ body {
 .table-div {
   display: block;
   width: 100%;
-  .responsive(560px,{
-    h2:nth-of-type(1) {
-      font-size: 1.7em;
-    }
-
-  })
+  .responsive(560px, { h2:nth-of-type(1) {
+    font-size: 1.7em;
+  } })
 }
 
 .my-table {
   margin-left: 15px;
   .pd-side(5px, 8px, 5px, 28px);
 
+  thead {
+    tr {
+      border: 0;
+    }
+  }
+
   th {
     .td-mixin;
-    background-color: darken(@main-color,10%);
+    background-color: darken(@main-color, 10%);
+  }
+
+  tr {
+    border-bottom: 1px solid black;
   }
 
   td {
     .td-mixin;
-    border-bottom: 1px solid black;
+
   }
 
-  .responsive(535px, {
-    .pd-side(5px, 2px, 5px, 2px);
-    margin-left: 0;
-    thead {
+  .responsive(535px, { .pd-side(5px, 2px, 5px, 2px); margin-left: 0; thead {
     position: absolute;
     top: -9999px;
     left: -9999px;
-  }
-    td:nth-of-type(1) {
+  } td:nth-of-type(1) {
       width: 100%;
       display: block;
       position: relative;
       margin-top: 8px;
       background-color: @second-color;
-    }
-    td:nth-of-type(2) {
+    } td:nth-of-type(2) {
         width: 50%;
         display: inline-block;
         position: relative;
@@ -226,8 +224,7 @@ body {
           content: 'Sprzedaż';
           font-weight: bold;
         }
-      }
-    td:nth-of-type(3) {
+      } td:nth-of-type(3) {
           width: 50%;
           display: inline-block;
           position: relative;
@@ -235,19 +232,16 @@ body {
             content: 'Kupno';
             font-weight: bold;
           }
-        }
-    td:nth-of-type(4) {
+        } td:nth-of-type(4) {
             width: 50%;
             display: inline-block;
             position: relative;
-          }
-    td:nth-of-type(5) {
+          } td:nth-of-type(5) {
               width: 50%;
               display: inline-block;
               position: relative;
             } })
 }
-
 
 .animate-hide {
   transition: all linear 0.5s;
@@ -262,7 +256,6 @@ body {
   opacity: 0;
   padding: 0 10px;
 }
-
 
 .app-modal-window .modal-dialog {
   width: 350px;

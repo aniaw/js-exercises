@@ -175,6 +175,9 @@ body {
   margin-left: 15px;
   padding: 5px 8px 5px 28px;
 }
+.my-table thead tr {
+  border: 0;
+}
 .my-table th {
   padding: 5px 10px 10px 8px;
   text-align: center;
@@ -182,12 +185,14 @@ body {
   font-size: 16px;
   background-color: #ccc997;
 }
+.my-table tr {
+  border-bottom: 1px solid black;
+}
 .my-table td {
   padding: 5px 10px 10px 8px;
   text-align: center;
   vertical-align: middle;
   font-size: 16px;
-  border-bottom: 1px solid black;
 }
 @media only screen and (max-width: 535px) {
   .my-table {

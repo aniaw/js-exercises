@@ -1,7 +1,8 @@
 /**
  * Created by student on 13.12.16.
  */
-(function(){
+(function ()
+{
     'use strict';
 
     function ModalConfirmController($uibModalInstance)
@@ -20,7 +21,7 @@
     }
 
     angular.module('cinkciarzTraining')
-        .controller('ModalConfirmController', ModalConfirmController);
+            .controller('ModalConfirmController', ModalConfirmController);
 
 
 })();

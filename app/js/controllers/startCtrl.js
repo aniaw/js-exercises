@@ -5,16 +5,21 @@
 {
     'use strict';
 
-    function StartController($localStorage, $location, $uibModal)
+    function StartController($localStorage, $location, $uibModal,$sessionStorage)
     {
         var ctrl = this;
         ctrl.startVal = undefined;
+        $sessionStorage.isRandom = false;
 
 
         ctrl.open = function ()
         {
             var modalInstance = $uibModal.open({
-                animation: true, templateUrl: 'myModalContent.html', controller: 'ModalController', controllerAs: 'ctrl', backdrop: 'static',
+                animation: true,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalController',
+                controllerAs: 'startModal',
+                backdrop: 'static',
                 windowClass: 'app-modal-window'
 
             });
@@ -26,7 +31,8 @@
                 $localStorage.$default({
                     wallet: {
                         PLN: ctrl.startVal ? ctrl.startVal : 0, EUR: 0, USD: 0, GBP: 0
-                    }
+                    },
+                    doRandom: false
 
                 });
                 $location.path('/main');
@@ -60,7 +66,6 @@
         ctrl.ok = function ()
         {
             if (ctrl.value === undefined) {
-                console.log(ctrl.value);
                 showErrorMessage('Zły format lub brak wartości');
             } else if (ctrl.value < 1) {
                 showErrorMessage('Ujemna lub zerowa wartość');
@@ -89,6 +94,7 @@
         }
 
     }
+
     angular.module('cinkciarzTraining')
             .controller('StartController', StartController)
             .controller('ModalController', ModalController);

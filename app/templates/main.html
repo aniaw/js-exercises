@@ -27,6 +27,8 @@
                     <div class="table-div">
                         <h2>Kantor - kursy z dnia: <p>{{mainCtrl.rates[0].date}}</p></h2>
                         <div>
+                            <label for='random' class="control-label">Włącz random: </label>
+                            <input type="checkbox" id="random" ng-click="mainCtrl.toggleRandomRates()" ng-checked="mainCtrl.isRandom()">
                             <table class="my-table">
                                 <thead>
                                 <tr>
@@ -40,11 +42,17 @@
                                     <td><p>{{rate.buy}} PLN</p></td>
                                     <td><p>{{rate.sell}} PLN</p></td>
                                     <td><a ng-href="#/buy/{{rate.code}}">
-                                        <button class="btn btn-success">Kupno</button>
+                                        <button class="btn btn-success" ng-click="mainCtrl.stopRandom()">Kupno</button>
                                     </a></td>
                                     <td><a ng-href="#/sell/{{rate.code}}">
-                                        <button class="btn btn-primary" ng-hide="mainCtrl.checkCurrencyWallet(rate.code)">Sprzedaż</button>
+                                        <button class="btn btn-primary" ng-click="mainCtrl.stopRandom()" ng-hide="mainCtrl.checkCurrencyWallet(rate.code)">Sprzedaż</button>
                                     </a></td>
+                                </tr>
+
+                                <tr ng-hide="true">
+                                    <td><p class="text-bold">{{mainCtrl.rates[0].code}} </p></td>
+                                    <td><p>{{mainCtrl.rates[0].buy}} PLN</p></td>
+                                    <td><p>{{mainCtrl.rates[0].sell}} PLN</p></td>
                                 </tr>
                             </table>
                         </div>

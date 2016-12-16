@@ -5,11 +5,14 @@
 (function ()
 {
     'use strict';
-    function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal)
+    function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal, RandomCurrencyService, $interval, $sessionStorage)
     {
         var ctrl = this;
         ctrl.wallet = WalletService.getWallet();
         ctrl.rates = [];
+        ctrl.randomRates = [];
+
+        var stop;
 
         ////////////////////////////////
         function reset()
@@ -45,15 +48,70 @@
                     });
         }
 
+        function setRandomRates()
+        {
+            stop = $interval(function ()
+            {
+                console.log('interval');
+                RandomCurrencyService.setRandomRates();
+                getRandomRates();
+            }, 5000);
+
+        }
+
+        function getRandomRates()
+        {
+            console.log('get');
+           RandomCurrencyService.getRandomRates()
+                    .then(function(result){
+                        console.log(result);
+                        ctrl.rates =  result;
+                    })
+                    .catch(function (error)
+                    {
+                        console.log(error);
+                    });
+        }
+
+        function isRandom()
+        {
+            return $sessionStorage.isRandom;
+        }
+
+        function stopRandom()
+        {
+            $interval.cancel(stop);
+        }
+
+        function checkRandom()
+        {
+            if (isRandom()) {
+                setRandomRates();
+            } else {
+                stopRandom();
+                getRandomRates();
+            }
+        }
+
+        function toggleRandomRates()
+        {
+            $sessionStorage.isRandom = !$sessionStorage.isRandom;
+            checkRandom();
+        }
+
         ///////////////////////////////
-
-        getCurrencies();
-
+        getRandomRates();
+        checkRandom();
         ctrl.reset = reset;
         ctrl.checkCurrencyWallet = checkCurrencyWallet;
+        ctrl.toggleRandomRates = toggleRandomRates;
+        ctrl.isRandom = isRandom;
+        ctrl.stopRandom = stopRandom;
         //////////////////////
 
+
     }
+
     angular.module('cinkciarzTraining')
             .controller('MainCtrl', MainCtrl);
 

@@ -39,7 +39,7 @@
                 return;
             }
 
-            if(ctrl.value < 0){
+            if (ctrl.value < 0) {
                 ctrl.errorMessage = ValidateService.getValues('Wpisałeś wartość poniżej zera');
                 $timeout(function ()
                 {
