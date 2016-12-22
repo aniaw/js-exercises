@@ -5,25 +5,12 @@
 {
     'use strict';
 
-    function RandomCurrencyService(CurrenciesService,$q)
+    function RandomCurrencyService(RatesFactory)
     {
 
-        var rates = [];
-        var randomRates = [];
+        var randomRates = RatesFactory.getRates();
+        var orginalRates = randomRates;
 
-        function getCurrencies()
-        {
-            CurrenciesService.getCurrencies()
-                    .then(function (data)
-                    {
-                        rates = data;
-                        randomRates = data;
-                    })
-                    .catch(function (error)
-                    {
-                        console.log('Error ', error);
-                    });
-        }
 
         function randomValue()
         {
@@ -62,23 +49,32 @@
 
         this.setRandomRates = function ()
         {
+            var originalBuy, originalSell;
             angular.forEach(randomRates, function (rate)
             {
-                rate.sell = randomOperations(rate.sell);
-                rate.buy = randomOperations(rate.buy);
+
+                while(isDiffrentToBig(rate.buy, randomOperations(rate.buy))) {
+
+                    rate.sell = randomOperations(rate.sell);
+                    rate.buy = randomOperations(rate.buy);
+                }
             });
+            RatesFactory.addRates(randomRates);
         };
-        getCurrencies();
+
+        function isDiffrentToBig(original,random){
+            console.log(mathDiff(original,random));
+            return !!(mathDiff(original, random) > 5 || mathDiff(original, random) < -5);
+        }
+
+        function mathDiff(original,random){
+            return ((original/random) * 100) - 100;
+        }
+
 
         this.getRandomRates = function ()
         {
-
-                var defer = $q.defer();
-                console.log(randomRates);
-
-                defer.resolve(randomRates);
-                console.log(defer.promise);
-                return defer.promise;
+            return randomRates;
         };
 
 

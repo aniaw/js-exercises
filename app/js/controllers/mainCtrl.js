@@ -5,11 +5,11 @@
 (function ()
 {
     'use strict';
-    function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal, RandomCurrencyService, $interval, $sessionStorage)
+    function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal, RandomCurrencyService, $interval, $sessionStorage,RatesFactory)
     {
         var ctrl = this;
         ctrl.wallet = WalletService.getWallet();
-        ctrl.rates = [];
+        ctrl.rates = RatesFactory.getRates();
         ctrl.randomRates = [];
 
         var stop;
@@ -40,19 +40,19 @@
             CurrenciesService.getCurrencies()
                     .then(function (data)
                     {
-                        ctrl.rates = data;
+                        $sessionStorage.rates = data;
                     })
                     .catch(function (error)
                     {
-                        console.log('Error ', error);
+                        console.log(error);
                     });
+
         }
 
         function setRandomRates()
         {
             stop = $interval(function ()
             {
-                console.log('interval');
                 RandomCurrencyService.setRandomRates();
                 getRandomRates();
             }, 5000);
@@ -61,16 +61,8 @@
 
         function getRandomRates()
         {
-            console.log('get');
-           RandomCurrencyService.getRandomRates()
-                    .then(function(result){
-                        console.log(result);
-                        ctrl.rates =  result;
-                    })
-                    .catch(function (error)
-                    {
-                        console.log(error);
-                    });
+            ctrl.rates = RandomCurrencyService.getRandomRates();
+
         }
 
         function isRandom()
@@ -100,7 +92,6 @@
         }
 
         ///////////////////////////////
-        getRandomRates();
         checkRandom();
         ctrl.reset = reset;
         ctrl.checkCurrencyWallet = checkCurrencyWallet;
@@ -109,6 +100,9 @@
         ctrl.stopRandom = stopRandom;
         //////////////////////
 
+        if(!$sessionStorage.rates){
+            getCurrencies();
+        }
 
     }
 

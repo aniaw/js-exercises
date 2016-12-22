@@ -4,12 +4,12 @@
 (function ()
 {
     'use strict';
-    function BuyController($routeParams, WalletService, RandomCurrencyService, $timeout, ValidateService)
+    function BuyController($routeParams, WalletService, $timeout, ValidateService, RatesFactory)
     {
 
         var ctrl = this;
         ctrl.currency = $routeParams.currency;
-        ctrl.rates = {};
+        ctrl.rates = RatesFactory.getRates();
         ctrl.value = 0;
         ctrl.wallet = WalletService.getWallet();
         ctrl.errorMessage = '';
@@ -65,8 +65,9 @@
         function getCurrencies()
         {
 
-            ctrl.rates = RandomCurrencyService.getRandomRates();
-            angular.forEach(ctrl.rates,function(rate){
+            ctrl.rates = RatesFactory.getRates();
+            angular.forEach(ctrl.rates, function (rate)
+            {
                 if (rate.code === ctrl.currency) {
                     ctrl.rate = rate;
                 }
