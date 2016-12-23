@@ -5,14 +5,16 @@
 (function ()
 {
     'use strict';
-    function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal, RandomCurrencyService, $interval, $sessionStorage,RatesFactory)
+    function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal, RandomCurrencyService, $interval, $sessionStorage, RatesFactory,
+    LogFactory)
     {
         var ctrl = this;
         ctrl.wallet = WalletService.getWallet();
         ctrl.rates = RatesFactory.getRates();
         ctrl.randomRates = [];
-
         var stop;
+        ctrl.logs = LogFactory.getLog();
+
 
         ////////////////////////////////
         function reset()
@@ -25,6 +27,7 @@
             modalInstance.result.then(function ()
             {
                 $location.path('/');
+                LogFactory.empty();
                 WalletService.reset();
             });
         }
@@ -81,7 +84,6 @@
                 setRandomRates();
             } else {
                 stopRandom();
-                getRandomRates();
             }
         }
 
@@ -91,16 +93,24 @@
             checkRandom();
         }
 
+        function showLog()
+        {
+            console.log('log',LogFactory.getLog());
+            ctrl.logs = LogFactory.getLog();
+        }
+
         ///////////////////////////////
+        showLog();
         checkRandom();
         ctrl.reset = reset;
         ctrl.checkCurrencyWallet = checkCurrencyWallet;
         ctrl.toggleRandomRates = toggleRandomRates;
         ctrl.isRandom = isRandom;
         ctrl.stopRandom = stopRandom;
+
         //////////////////////
 
-        if(!$sessionStorage.rates){
+        if (null == $sessionStorage.rates) {
             getCurrencies();
         }
 

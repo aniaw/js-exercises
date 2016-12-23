@@ -5,11 +5,17 @@
 {
     'use strict';
 
-    function RandomCurrencyService(RatesFactory)
+    function RandomCurrencyService(RatesFactory,CurrenciesService)
     {
 
         var randomRates = RatesFactory.getRates();
-        var orginalRates = randomRates;
+        var orginalRates = CurrenciesService.getCurrencies()
+                .then(function(data){
+                    orginalRates = data;
+                })
+                .catch(function(error){
+                    console.log('Error occured',error);
+                });
 
 
         function randomValue()
@@ -49,26 +55,31 @@
 
         this.setRandomRates = function ()
         {
-            var originalBuy, originalSell;
-            angular.forEach(randomRates, function (rate)
-            {
 
-                while(isDiffrentToBig(rate.buy, randomOperations(rate.buy))) {
-
-                    rate.sell = randomOperations(rate.sell);
-                    rate.buy = randomOperations(rate.buy);
+               for(var i = 0; i < orginalRates.length; i++)
+                {
+                    var randomBuy = randomOperations(orginalRates[i].buy);
+                    randomRates[i].buy = randomBuy;
+                    while (isDiffrentToBig(orginalRates[i].buy, randomBuy)) {
+                        randomRates[i].buy = randomOperations(orginalRates[i].buy);
+                    }
+                    var randomSell = randomOperations(orginalRates[i].sell);
+                    randomRates[i].sell = randomSell;
+                    while (isDiffrentToBig(orginalRates[i].sell, randomSell)) {
+                        randomRates[i].sell = randomOperations(orginalRates[i].sell);
+                    }
                 }
-            });
             RatesFactory.addRates(randomRates);
         };
 
-        function isDiffrentToBig(original,random){
-            console.log(mathDiff(original,random));
-            return !!(mathDiff(original, random) > 5 || mathDiff(original, random) < -5);
+        function isDiffrentToBig(original, random)
+        {
+            return mathDiff(original, random) > 5;
         }
 
-        function mathDiff(original,random){
-            return ((original/random) * 100) - 100;
+        function mathDiff(original, random)
+        {
+            return Math.abs(((original - random) / original) * 100);
         }
 
 

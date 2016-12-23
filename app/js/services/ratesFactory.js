@@ -11,7 +11,6 @@
             var ctrl = this;
 
             ctrl.oldRates = [];
-
             ctrl.rates = $sessionStorage.rates;
 
             ctrl.addRates = function (rates)
@@ -30,6 +29,8 @@
             {
                 return ctrl.oldRates;
             };
+
+
 
         }
 

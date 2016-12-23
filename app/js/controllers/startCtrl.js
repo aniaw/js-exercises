@@ -10,6 +10,7 @@
         var ctrl = this;
         ctrl.startVal = undefined;
         $sessionStorage.isRandom = false;
+
         function getCurrencies()
         {
             CurrenciesService.getCurrencies()
@@ -46,7 +47,8 @@
                 $localStorage.$default({
                     wallet: {
                         PLN: ctrl.startVal ? ctrl.startVal : 0, EUR: 0, USD: 0, GBP: 0
-                    }, doRandom: false
+                    }, doRandom: false,
+                    log: []
 
                 });
                 $location.path('/main');

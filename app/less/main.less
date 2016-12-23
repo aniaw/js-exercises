@@ -10,9 +10,6 @@ body {
   line-height: 150%;
 }
 
-.cover {
-  background-size: cover;
-}
 
 .main {
   background-color: @main-color;
@@ -42,7 +39,7 @@ body {
   .responsive(425px, { .pd-side(0, 7px, 0, 7px); })
 }
 
-.panel {
+.panel-no-border {
   border: 0;
 }
 
@@ -117,8 +114,6 @@ body {
   border-radius: 10px;
   width: 100%;
   .pd-side(25px, 35px, 35px, 35px);
-  -webkit-box-shadow: 3px 3px 1px 1px lightgrey;
-  -moz-box-shadow: 33px 3px 1px 1px lightgrey;
   box-shadow: 3px 3px 1px 1px lightgrey;
 
   .responsive(425px, { .pd-side(25px, 8px, 35px, 8px); })
@@ -175,7 +170,7 @@ body {
 }
 
 .table-div {
-  display: block;
+  display: table;
   width: 100%;
   .responsive(560px, { h2:nth-of-type(1) {
     font-size: 1.7em;
@@ -268,6 +263,21 @@ body {
 .input-modal {
   margin-top: -5px;
   width: 100%;
+}
+
+.panel-scroll {
+  overflow-y: scroll;
+  max-height: 300px;
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: darken(@main-color,8%);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: @second-color;
+  }
+
 }
 
 @keyframes rotateY {

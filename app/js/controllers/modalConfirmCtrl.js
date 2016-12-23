@@ -5,12 +5,14 @@
 {
     'use strict';
 
-    function ModalConfirmController($uibModalInstance)
+    function ModalConfirmController($uibModalInstance,$localStorage)
     {
+
         var ctrl = this;
 
         ctrl.ok = function ()
         {
+            $localStorage.log = [];
             $uibModalInstance.close();
         };
 
