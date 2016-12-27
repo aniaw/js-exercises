@@ -43,8 +43,13 @@
                                         </thead>
                                         <tr ng-repeat="rate in mainCtrl.rates track by $index">
                                             <td><p class="text-bold">{{rate.code}} </p></td>
-                                            <td><p>{{rate.buy}} PLN</p></td>
-                                            <td><p>{{rate.sell}} PLN</p></td>
+                                            <td><p>{{rate.buy | number: 4}} PLN
+                                                <span ng-if="mainCtrl.isRandom()"
+                                                      ng-class="mainCtrl.diffBuy(rate.code, rate.buy)
+                                                      ? ['triangle-up','color-border-red']
+                                                      : ['triangle-down','color-border-green']"></span>
+                                            </p> </td>
+                                            <td><p>{{rate.sell | number:4}} PLN</p></td>
                                             <td><a ng-href="#/buy/{{rate.code}}">
                                                 <button class="btn btn-success" ng-click="mainCtrl.stopRandom()">Kupno</button>
                                             </a></td>

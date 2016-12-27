@@ -16,7 +16,6 @@
         function LoggerFacto(){
             var ctrl = this;
             ctrl.logArr = $localStorage.log;
-            console.log($localStorage.log);
             ctrl.addLog = function(message)
             {
                 ctrl.logArr.push(new LogObj(message));

@@ -4,19 +4,36 @@
 (function ()
 {
     'use strict';
-    function RatesFactory($sessionStorage)
+    function RatesFactory($sessionStorage, CurrenciesService)
     {
         function Rates()
         {
             var ctrl = this;
-
+            ctrl.rates = angular.copy($sessionStorage.rates);
             ctrl.oldRates = [];
-            ctrl.rates = $sessionStorage.rates;
+
+
+            function getCurrencies()
+            {
+                CurrenciesService.getCurrencies()
+                        .then(function (data)
+                        {
+                            $sessionStorage.rates = data;
+                            ctrl.rates = angular.copy($sessionStorage.rates);
+                        })
+                        .catch(function (error)
+                        {
+                            console.log(error);
+                        });
+
+            }
+
+            getCurrencies();
 
             ctrl.addRates = function (rates)
             {
-                ctrl.oldRates = ctrl.rates;
-                ctrl.rates = rates;
+                angular.copy(ctrl.rates,ctrl.oldRates);
+                ctrl.rates = angular.copy(rates);
             };
 
 
@@ -29,6 +46,8 @@
             {
                 return ctrl.oldRates;
             };
+
+
 
 
 

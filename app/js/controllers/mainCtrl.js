@@ -6,11 +6,12 @@
 {
     'use strict';
     function MainCtrl($location, WalletService, $localStorage, CurrenciesService, $uibModal, RandomCurrencyService, $interval, $sessionStorage, RatesFactory,
-    LogFactory)
+                      LogFactory)
     {
         var ctrl = this;
         ctrl.wallet = WalletService.getWallet();
         ctrl.rates = RatesFactory.getRates();
+
         ctrl.randomRates = [];
         var stop;
         ctrl.logs = LogFactory.getLog();
@@ -44,6 +45,7 @@
                     .then(function (data)
                     {
                         $sessionStorage.rates = data;
+                        ctrl.rates = RatesFactory.getRates();
                     })
                     .catch(function (error)
                     {
@@ -95,11 +97,34 @@
 
         function showLog()
         {
-            console.log('log',LogFactory.getLog());
             ctrl.logs = LogFactory.getLog();
         }
 
+        ctrl.diffBuy = function (code, buy)
+        {
+            var oldRate = findRate(code);
+            if (null == oldRate) {
+                return;
+            }
+            return buy > oldRate.buy;
+        };
+
+        function findRate(code)
+        {
+            var old = RatesFactory.getOldRates();
+            if (old.length === 0) {
+                return;
+            }
+            for (var i = 0; i < old.length; i++) {
+
+                if (old[i].code === code) {
+                    return old[i];
+                }
+            }
+        }
+
         ///////////////////////////////
+        getCurrencies();
         showLog();
         checkRandom();
         ctrl.reset = reset;

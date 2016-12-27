@@ -5,16 +5,18 @@
 {
     'use strict';
 
-    function RandomCurrencyService(RatesFactory,CurrenciesService)
+    function RandomCurrencyService(RatesFactory, CurrenciesService)
     {
 
         var randomRates = RatesFactory.getRates();
         var orginalRates = CurrenciesService.getCurrencies()
-                .then(function(data){
+                .then(function (data)
+                {
                     orginalRates = data;
                 })
-                .catch(function(error){
-                    console.log('Error occured',error);
+                .catch(function (error)
+                {
+                    console.log('Error occured', error);
                 });
 
 
@@ -56,19 +58,18 @@
         this.setRandomRates = function ()
         {
 
-               for(var i = 0; i < orginalRates.length; i++)
-                {
-                    var randomBuy = randomOperations(orginalRates[i].buy);
-                    randomRates[i].buy = randomBuy;
-                    while (isDiffrentToBig(orginalRates[i].buy, randomBuy)) {
-                        randomRates[i].buy = randomOperations(orginalRates[i].buy);
-                    }
-                    var randomSell = randomOperations(orginalRates[i].sell);
-                    randomRates[i].sell = randomSell;
-                    while (isDiffrentToBig(orginalRates[i].sell, randomSell)) {
-                        randomRates[i].sell = randomOperations(orginalRates[i].sell);
-                    }
+            for (var i = 0; i < orginalRates.length; i++) {
+                var randomBuy = parseFloat(randomOperations(orginalRates[i].buy));
+                randomRates[i].buy = randomBuy;
+                while (isDiffrentToBig(orginalRates[i].buy, randomBuy)) {
+                    randomRates[i].buy = parseFloat(randomOperations(orginalRates[i].buy));
                 }
+                var randomSell = parseFloat(randomOperations(orginalRates[i].sell));
+                randomRates[i].sell = randomSell;
+                while (isDiffrentToBig(orginalRates[i].sell, randomSell)) {
+                    randomRates[i].sell = parseFloat(randomOperations(orginalRates[i].sell));
+                }
+            }
             RatesFactory.addRates(randomRates);
         };
 
