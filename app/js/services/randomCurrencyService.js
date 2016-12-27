@@ -22,23 +22,22 @@
 
         function randomValue()
         {
-            return (Math.random() * 2).toFixed(2);
+            return (Math.random()).toFixed(2);
         }
 
-        function addValue(currency)
-        {
-            currency = parseFloat(currency);
-            var value = parseFloat(randomValue()).toFixed(2);
-            currency += currency * value / 100;
-            currency = currency.toFixed(4);
-            return currency;
-        }
 
-        function minusValue(currency)
-        {
+        function operations(currency,operation){
             currency = parseFloat(currency);
             var value = parseFloat(randomValue()).toFixed(2);
-            currency -= currency * value / 100;
+            switch (operation){
+                case '-' :
+                    currency -= currency * value / 100;
+                    break;
+                case '+' :
+                    currency += currency * value / 100;
+                    break;
+            }
+
             currency = currency.toFixed(4);
             return currency;
         }
@@ -48,9 +47,9 @@
             var random = Math.floor(Math.random() * 2);
             var value = 0;
             if (0 === random) {
-                value = minusValue(currency);
+                value = operations(currency, '-');
             } else {
-                value = addValue(currency);
+                value = operations(currency,'+');
             }
             return value;
         }

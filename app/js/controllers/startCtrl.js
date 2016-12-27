@@ -47,7 +47,7 @@
                 $localStorage.$default({
                     wallet: {
                         PLN: ctrl.startVal ? ctrl.startVal : 0, EUR: 0, USD: 0, GBP: 0
-                    }, doRandom: false,
+                    },
                     log: []
 
                 });
@@ -82,9 +82,9 @@
         ctrl.ok = function ()
         {
             if (ctrl.value === undefined) {
-                showErrorMessage('Zły format lub brak wartości');
+                showErrorMessage('Nie wpisałeś wartości');
             } else if (ctrl.value < 1) {
-                showErrorMessage('Ujemna lub zerowa wartość');
+                showErrorMessage('Wpisałeś ujemną lub zerową wartość');
             }
 
             else {

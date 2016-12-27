@@ -15,6 +15,7 @@
         ctrl.randomRates = [];
         var stop;
         ctrl.logs = LogFactory.getLog();
+        ctrl.showArrows = false;
 
 
         ////////////////////////////////
@@ -35,22 +36,23 @@
 
         function checkCurrencyWallet(code)
         {
+            if(typeof $localStorage.wallet[code] === 'undefined'){
+                return true;
+            }
             return $localStorage.wallet[code] <= 0;
         }
 
 
         function getCurrencies()
         {
-            CurrenciesService.getCurrencies()
-                    .then(function (data)
-                    {
-                        $sessionStorage.rates = data;
-                        ctrl.rates = RatesFactory.getRates();
-                    })
-                    .catch(function (error)
-                    {
-                        console.log(error);
-                    });
+            CurrenciesService.getCurrencies().then(function (data)
+            {
+                $sessionStorage.rates = data;
+                ctrl.rates = RatesFactory.getRates();
+            }).catch(function (error)
+            {
+                console.log(error);
+            });
 
         }
 
@@ -60,6 +62,7 @@
             {
                 RandomCurrencyService.setRandomRates();
                 getRandomRates();
+                ctrl.showArrows = true;
             }, 5000);
 
         }
@@ -78,6 +81,7 @@
         function stopRandom()
         {
             $interval.cancel(stop);
+            ctrl.showArrows = false;
         }
 
         function checkRandom()
@@ -107,6 +111,15 @@
                 return;
             }
             return buy > oldRate.buy;
+        };
+
+        ctrl.diffSell = function (code, sell)
+        {
+            var oldRate = findRate(code);
+            if (null == oldRate) {
+                return;
+            }
+            return sell > oldRate.sell;
         };
 
         function findRate(code)
@@ -141,7 +154,6 @@
 
     }
 
-    angular.module('cinkciarzTraining')
-            .controller('MainCtrl', MainCtrl);
+    angular.module('cinkciarzTraining').controller('MainCtrl', MainCtrl);
 
 })();

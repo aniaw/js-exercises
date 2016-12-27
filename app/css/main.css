@@ -251,11 +251,17 @@ body {
   border-right: 6px solid transparent;
   border-top: 10px solid;
 }
-.color-border-red {
+.color-border-bottom-red {
   border-bottom-color: red;
 }
-.color-border-green {
+.color-border-top-green {
   border-top-color: green;
+}
+.color-border-top-red {
+  border-top-color: red;
+}
+.color-border-bottom-green {
+  border-bottom-color: green;
 }
 .animate-hide {
   transition: all linear 0.5s;

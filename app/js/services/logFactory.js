@@ -7,13 +7,14 @@
     function LogFactory($localStorage)
     {
 
+
         var LogObj = function (message)
         {
             this.message = message;
             this.date = new Date();
         };
 
-        function LoggerFacto(){
+        function LoggerFactory(){
             var ctrl = this;
             ctrl.logArr = $localStorage.log;
             ctrl.addLog = function(message)
@@ -32,7 +33,7 @@
             };
         }
 
-        return new LoggerFacto();
+        return new LoggerFactory();
     }
 
     angular.module('cinkciarzTraining')
