@@ -49,7 +49,11 @@
                                                       ? ['triangle-up','color-border-red']
                                                       : ['triangle-down','color-border-green']"></span>
                                             </p> </td>
-                                            <td><p>{{rate.sell | number:4}} PLN</p></td>
+                                            <td><p>{{rate.sell | number:4}} PLN
+                                                <span ng-if="mainCtrl.isRandom()"
+                                                      ng-class="mainCtrl.diffSell(rate.code, rate.sell)
+                                                      ? ['triangle-up','color-border-green']
+                                                      : ['triangle-down','color-border-red']"></span></p></td>
                                             <td><a ng-href="#/buy/{{rate.code}}">
                                                 <button class="btn btn-success" ng-click="mainCtrl.stopRandom()">Kupno</button>
                                             </a></td>

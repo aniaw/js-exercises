@@ -47,7 +47,7 @@
                 $localStorage.$default({
                     wallet: {
                         PLN: ctrl.startVal ? ctrl.startVal : 0, EUR: 0, USD: 0, GBP: 0
-                    }, doRandom: false,
+                    },
                     log: []
 
                 });

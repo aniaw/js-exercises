@@ -9,7 +9,7 @@
         function Rates()
         {
             var ctrl = this;
-            ctrl.rates = angular.copy($sessionStorage.rates);
+            ctrl.rates = $sessionStorage.rates;
             ctrl.oldRates = [];
 
 

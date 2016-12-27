@@ -41,16 +41,14 @@
 
         function getCurrencies()
         {
-            CurrenciesService.getCurrencies()
-                    .then(function (data)
-                    {
-                        $sessionStorage.rates = data;
-                        ctrl.rates = RatesFactory.getRates();
-                    })
-                    .catch(function (error)
-                    {
-                        console.log(error);
-                    });
+            CurrenciesService.getCurrencies().then(function (data)
+            {
+                $sessionStorage.rates = data;
+                ctrl.rates = RatesFactory.getRates();
+            }).catch(function (error)
+            {
+                console.log(error);
+            });
 
         }
 
@@ -109,6 +107,15 @@
             return buy > oldRate.buy;
         };
 
+        ctrl.diffSell = function (code, sell)
+        {
+            var oldRate = findRate(code);
+            if (null == oldRate) {
+                return;
+            }
+            return sell > oldRate.sell;
+        };
+
         function findRate(code)
         {
             var old = RatesFactory.getOldRates();
@@ -141,7 +148,6 @@
 
     }
 
-    angular.module('cinkciarzTraining')
-            .controller('MainCtrl', MainCtrl);
+    angular.module('cinkciarzTraining').controller('MainCtrl', MainCtrl);
 
 })();
