@@ -60,7 +60,6 @@
         ctrl.ok = function ()
         {
             if (ctrl.value === undefined) {
-                console.log(ctrl.value);
                 showErrorMessage('Zły format lub brak wartości');
             } else if (ctrl.value < 1) {
                 showErrorMessage('Ujemna lub zerowa wartość');
