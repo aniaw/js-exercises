@@ -1,6 +1,3 @@
-/**
- * Created by student on 06.12.16.
- */
 (function ()
 {
     'use strict';
@@ -62,6 +59,11 @@
 
         }
 
+        function sellCost()
+        {
+            return (ctrl.value * ctrl.rate.sell) > 0 ? (ctrl.value * ctrl.rate.sell) : 0;
+        }
+
         function getCurrencies()
         {
             ctrl.rates = RatesFactory.getRates();
@@ -73,11 +75,6 @@
             });
             ctrl.sellCost = sellCost;
 
-        }
-
-        function sellCost()
-        {
-            return (ctrl.value * ctrl.rate.sell) > 0 ? (ctrl.value * ctrl.rate.sell) : 0;
         }
 
 

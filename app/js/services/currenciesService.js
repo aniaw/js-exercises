@@ -1,6 +1,3 @@
-/**
- * Created by sunday on 12/6/16.
- */
 (function ()
 {
     'use strict';

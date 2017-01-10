@@ -1,7 +1,3 @@
-/**
- * Created by sunday on 12/1/16.
- */
-
 (function ()
 {
     'use strict';
@@ -9,14 +5,12 @@
                       LogFactory)
     {
         var ctrl = this;
+        var stop;
         ctrl.wallet = WalletService.getWallet();
         ctrl.rates = RatesFactory.getRates();
-
         ctrl.randomRates = [];
-        var stop;
         ctrl.logs = LogFactory.getLog();
         ctrl.showArrows = false;
-
 
         ////////////////////////////////
         function reset()
@@ -107,25 +101,19 @@
         ctrl.diffBuy = function (code, buy)
         {
             var oldRate = findRate(code);
-            if (null == oldRate) {
-                return;
-            }
             return buy > oldRate.buy;
         };
 
         ctrl.diffSell = function (code, sell)
         {
             var oldRate = findRate(code);
-            if (null == oldRate) {
-                return;
-            }
             return sell > oldRate.sell;
         };
 
         function findRate(code)
         {
             var old = RatesFactory.getOldRates();
-            if (old.length === 0) {
+            if (0 === old.length) {
                 return;
             }
             for (var i = 0; i < old.length; i++) {
