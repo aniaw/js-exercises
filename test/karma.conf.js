@@ -24,7 +24,9 @@ module.exports = function (config)
             'app/app.js',
             'app/app.config.js',
             'app/app.run.js',
-            'app/js/**/*.js',
+            'app/js/controllers/*.js',
+            'app/js/directives/*.js',
+            'app/js/services/*.js',
             // 'app/!(bower_components)/**/*.js',
             'test/unit/**/*.spec.js'
         ],

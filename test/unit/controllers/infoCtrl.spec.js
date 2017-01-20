@@ -13,7 +13,6 @@ describe('InfoController', function ()
     {
         it('should status be defined', function ()
         {
-            console.log('info',infoCtrl);
             expect(infoCtrl.status).toBeDefined();
         });
         it('should status.isFirstOpen to be true', function ()
