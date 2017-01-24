@@ -10,7 +10,7 @@ module.exports = function (config)
         basePath: '../',
 
         // testing framework to use (jasmine/mocha/qunit/...)
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine', 'jasmine-matchers'],
 
         // list of files / patterns to load in the browser
         files: [
@@ -60,7 +60,7 @@ module.exports = function (config)
         browsers: ['PhantomJS'],
 
         // Which plugins to enable
-        plugins: ['karma-phantomjs-launcher', 'karma-jasmine', 'karma-spec-reporter', 'karma-coverage'],
+        plugins: ['karma-phantomjs-launcher', 'karma-jasmine', 'karma-spec-reporter', 'karma-coverage','karma-jasmine-matchers'],
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit

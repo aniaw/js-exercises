@@ -125,9 +125,9 @@
         }
 
         ///////////////////////////////
-        getCurrencies();
-        showLog();
-        checkRandom();
+        // getCurrencies();
+        ctrl.showLog = showLog;
+        ctrl.checkRandom = checkRandom();
         ctrl.reset = reset;
         ctrl.checkCurrencyWallet = checkCurrencyWallet;
         ctrl.toggleRandomRates = toggleRandomRates;

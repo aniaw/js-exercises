@@ -1,7 +1,7 @@
-describe('BuyController', function ()
+describe('SellController', function ()
 {
     'use strict';
-    var buyCtrl;
+    var sellCtrl;
     var routeParams;
     var WalletServiceMock;
     var timeout;
@@ -27,21 +27,20 @@ describe('BuyController', function ()
         }, {
             buy: 5.123, code: 'GBP', date: '2017-01-20', sell: 5.0216
         }];
-
         $localStorage.$reset();
         $localStorage.wallet = {
-            PLN: 1000, EUR: 0, GBP: 0, USD: 0
+            PLN: 1000, EUR: 100, GBP: 0, USD: 0
         };
 
-        routeParams.currency = 'USD';
+        routeParams.currency = 'EUR';
 
         spyOn(RatesFactoryMock, 'getRates').and.returnValue(rates);
         spyOn(WalletServiceMock, 'getWallet').and.callThrough();
         spyOn(ValidateServiceMock, 'validateEmpty').and.callThrough();
         spyOn(ValidateServiceMock, 'getValues').and.callThrough();
-        spyOn(WalletServiceMock, 'buy');
+        spyOn(WalletServiceMock, 'sell');
 
-        buyCtrl = $controller('BuyController', {
+        sellCtrl = $controller('SellController', {
             $routeParams: routeParams, WalletService: WalletServiceMock, $timeout: timeout, ValidateService: ValidateServiceMock, RatesFactory: RatesFactoryMock
         });
     }));
@@ -50,26 +49,25 @@ describe('BuyController', function ()
     {
         it('should set currency', function ()
         {
-            expect(buyCtrl.currency).toBe('USD');
+            expect(sellCtrl.currency).toBe('EUR');
         });
-
         it('should set rates', function ()
         {
-            expect(buyCtrl.rates).toEqual(rates);
+            expect(sellCtrl.rates).toEqual(rates);
         });
         it('should set wallet', function ()
         {
-            expect(buyCtrl.wallet).toEqual({
-                PLN: 1000, EUR: 0, GBP: 0, USD: 0
+            expect(sellCtrl.wallet).toEqual({
+                PLN: 1000, EUR: 100, GBP: 0, USD: 0
             });
         });
         it('should set value to 0', function ()
         {
-            expect(buyCtrl.value).toBe(0);
+            expect(sellCtrl.value).toBe(0);
         });
         it('should set errorMessage as empty', function ()
         {
-            expect(buyCtrl.errorMessage).toBe('');
+            expect(sellCtrl.errorMessage).toBe('');
         });
     });
 
@@ -83,7 +81,7 @@ describe('BuyController', function ()
             });
             it('should return \'Euro\' if currency = \'EUR\'', function ()
             {
-                expect(buyCtrl.showTitle()).toEqual('Euro');
+                expect(sellCtrl.showTitle()).toEqual('Euro');
             });
         });
 
@@ -95,7 +93,7 @@ describe('BuyController', function ()
             });
             it('should return \'Funtów\'', function ()
             {
-                expect(buyCtrl.showTitle()).toEqual('Funtów');
+                expect(sellCtrl.showTitle()).toEqual('Funtów');
             });
         });
 
@@ -107,118 +105,119 @@ describe('BuyController', function ()
             });
             it('should return \'Dolarów\'', function ()
             {
-                expect(buyCtrl.showTitle()).toEqual('Dolarów');
+                expect(sellCtrl.showTitle()).toEqual('Dolarów');
             });
         });
 
 
     });
 
-    describe('when call getCurrencies', function ()
+    describe('getCurrencies', function ()
     {
-        it('should set rate', function ()
+        describe('when call', function ()
         {
-            expect(buyCtrl.rate).toEqual(rates[0]);
-        });
-        it('should set buyCost to 0', function ()
-        {
-            expect(buyCtrl.buyCost()).toBe(0);
+            it('should set rate', function ()
+            {
+                expect(sellCtrl.rate).toEqual(rates[1]);
+            });
+            it('should set sellCost', function ()
+            {
+                expect(sellCtrl.sellCost()).toBe(0);
+            });
         });
     });
 
-    describe('when call buyCost', function ()
+    describe('sellCost', function ()
     {
-        it('should return calculate cost if value is greaten then 0', function ()
+        describe('when value is less then 0', function ()
         {
-            buyCtrl.value = 10;
-            expect(buyCtrl.buyCost()).toEqual(41.635);
-            buyCtrl.value = 190;
-            expect(buyCtrl.buyCost()).toBeCloseTo(791.06);
+            it('should return 0', function ()
+            {
+                sellCtrl.value = 0;
+                expect(sellCtrl.sellCost()).toEqual(0);
+            });
+        });
+        describe('when value is greaten then 0', function ()
+        {
+            it('should return calculate value', function ()
+            {
+                sellCtrl.value = 10;
+                expect(sellCtrl.sellCost()).toBe(sellCtrl.value * sellCtrl.rate.sell);
+                sellCtrl.value = 67;
+                expect(sellCtrl.sellCost()).toBe(sellCtrl.value * sellCtrl.rate.sell);
+            });
         });
     });
 
-    describe('buy', function ()
+
+    describe('sell', function ()
     {
         describe('when value is empty', function ()
         {
             beforeEach(function ()
             {
-                buyCtrl.value = '';
-                buyCtrl.buy();
+                sellCtrl.value = '';
+                sellCtrl.sell();
             });
             it('should set errorMessage if value is empty', function ()
             {
-                expect(buyCtrl.errorMessage).toBe('Nie wpisałeś ilości');
+                expect(sellCtrl.errorMessage).toBe('Nie wpisałeś ilości');
             });
-            /*it('should set errorMessage to default after timeout', function ()
-             {
-             timeout.flush();
-             // timeout.verifyNoPendingTasks();
-             buyCtrl.errorMessage = ValidateServiceMock.getValues('');
-             expect(buyCtrl.errorMessage).toBe('');
-             });*/
-
         });
 
-        describe('when value is lower than 0', function ()
+        describe('when value is lesser then 0', function ()
         {
             beforeEach(function ()
             {
-                buyCtrl.value = -4;
-                buyCtrl.buy();
+                sellCtrl.value = -2;
+                sellCtrl.sell();
             });
-            it('should set errorMessage if value is negative', function ()
+            it('should set errorMessage if value is lesser than 0', function ()
             {
-                expect(buyCtrl.errorMessage).toBe('Wpisałeś wartość poniżej zera');
+                expect(sellCtrl.errorMessage).toBe('Wpisałeś wartość poniżej zera');
             });
         });
 
-        describe('when don\'t have enough money', function ()
+        describe('when not enough money to sell', function ()
         {
             beforeEach(function ()
             {
-                buyCtrl.value = 1000;
-                buyCtrl.buy();
+                sellCtrl.value = 102;
+                sellCtrl.sell();
             });
-
-            it('should set errorMessage id don\'t have enough money', function ()
+            it('should set errorMessage', function ()
             {
-                expect(buyCtrl.errorMessage).toBe('Za mało środków');
+                expect(sellCtrl.errorMessage).toBe('Za mało środków');
             });
         });
 
-        describe('when enough money to buy', function ()
+        describe('when enough money to sell', function ()
         {
             var expectedWallet;
             beforeEach(function ()
             {
-                buyCtrl.value = 100;
-                buyCtrl.buy();
+                sellCtrl.value = 10;
+                sellCtrl.sell();
 
                 $localStorage.wallet = {
-                    PLN: 1000 - (rates[0].buy * buyCtrl.value), EUR: 0, GBP: 0, USD: 100
+                    PLN: 1000 + (sellCtrl.rate.sell * sellCtrl.value) , EUR: 100 - sellCtrl.value, GBP: 0, USD: 0
 
                 };
 
                 expectedWallet = $localStorage.wallet;
-
             });
-            it('should call WalletService.buy', function ()
+            it('should call WalletService.sell()', function ()
             {
-                expect(WalletServiceMock.buy).toHaveBeenCalledWith(rates[0].code, rates[0].buy, 100);
-
+                expect(WalletServiceMock.sell).toHaveBeenCalled();
             });
             it('should refresh wallet value', function ()
             {
-                buyCtrl.wallet = WalletServiceMock.getWallet();
-                expect(buyCtrl.wallet).toEqual(expectedWallet);
+                expect(sellCtrl.wallet).toEqual(expectedWallet);
             });
-            it('should set new value', function ()
+            it('should set value to 0', function ()
             {
-                expect(buyCtrl.value).toEqual(0);
+                expect(sellCtrl.value).toBe(0);
             });
         });
-
-
     });
 });
