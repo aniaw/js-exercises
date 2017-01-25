@@ -2,28 +2,12 @@
 {
     'use strict';
 
-    function StartController($localStorage, $location, $uibModal, $sessionStorage, CurrenciesService)
+    function StartController($localStorage, $location, $uibModal, $sessionStorage)
     {
         var ctrl = this;
         ctrl.startVal = undefined;
         $sessionStorage.isRandom = false;
 
-        function getCurrencies()
-        {
-            CurrenciesService.getCurrencies()
-                    .then(function (data)
-                    {
-                        $sessionStorage.rates = data;
-                    })
-                    .catch(function (error)
-                    {
-                        console.log(error);
-                    });
-
-        }
-
-
-        ctrl.getCurrencies = getCurrencies();
 
 
         ctrl.open = function ()

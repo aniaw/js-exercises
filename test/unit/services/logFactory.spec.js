@@ -21,6 +21,10 @@ describe('LogFactory', function ()
         LogFactory.logArr = storage.log;
 
     }));
+    afterEach(function ()
+    {
+        storage.$reset();
+    });
 
     describe('init', function ()
     {
