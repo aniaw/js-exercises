@@ -10,6 +10,8 @@
 
 
 
+
+
         ctrl.open = function ()
         {
             var modalInstance = $uibModal.open({
@@ -29,8 +31,7 @@
                 $localStorage.$default({
                     wallet: {
                         PLN: ctrl.startVal ? ctrl.startVal : 0, EUR: 0, USD: 0, GBP: 0
-                    },
-                    log: []
+                    }, log: []
 
                 });
                 $location.path('/main');

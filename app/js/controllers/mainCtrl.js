@@ -1,8 +1,10 @@
 (function ()
 {
     'use strict';
+
     function MainCtrl($location, WalletService, $localStorage, $uibModal, RandomCurrencyService, $interval, $sessionStorage, RatesFactory,
                       LogFactory)
+
     {
         var ctrl = this;
         var stop;
@@ -30,11 +32,15 @@
 
         function checkCurrencyWallet(code)
         {
+
             if(null == $localStorage.wallet){
+
                 return true;
             }
             return $localStorage.wallet[code] <= 0;
         }
+
+
 
 
 
