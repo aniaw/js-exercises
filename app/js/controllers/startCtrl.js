@@ -2,28 +2,11 @@
 {
     'use strict';
 
-    function StartController($localStorage, $location, $uibModal, $sessionStorage, CurrenciesService)
+    function StartController($localStorage, $location, $uibModal, $sessionStorage)
     {
         var ctrl = this;
         ctrl.startVal = undefined;
         $sessionStorage.isRandom = false;
-
-        function getCurrencies()
-        {
-            CurrenciesService.getCurrencies()
-                    .then(function (data)
-                    {
-                        $sessionStorage.rates = data;
-                    })
-                    .catch(function (error)
-                    {
-                        console.log(error);
-                    });
-
-        }
-
-
-        ctrl.getCurrencies = getCurrencies();
 
 
         ctrl.open = function ()
@@ -45,8 +28,7 @@
                 $localStorage.$default({
                     wallet: {
                         PLN: ctrl.startVal ? ctrl.startVal : 0, EUR: 0, USD: 0, GBP: 0
-                    },
-                    log: []
+                    }, log: []
 
                 });
                 $location.path('/main');
