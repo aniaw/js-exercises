@@ -9,6 +9,9 @@
         $sessionStorage.isRandom = false;
 
 
+
+
+
         ctrl.open = function ()
         {
             var modalInstance = $uibModal.open({
