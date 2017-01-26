@@ -28,7 +28,8 @@ module.exports = function (config)
             'app/js/directives/*.js',
             'app/js/services/*.js',
             // 'app/!(bower_components)/**/*.js',
-            'test/unit/**/*.spec.js'
+            'test/unit/**/*.spec.js',
+                'test/testHelper.js'
         ],
 
         // list of files / patterns to exclude
