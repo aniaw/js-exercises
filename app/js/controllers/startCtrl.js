@@ -1,43 +1,37 @@
-/**
- * Created by student on 09.12.16.
- */
 (function ()
 {
     'use strict';
-    angular.module('cinkciarzTraining')
-            .controller('StartController', StartController)
-            .controller('ModalController', ModalController);
 
-    ////////////////////////
-    function StartController($timeout, $localStorage, $location, $uibModal)
+    function StartController($localStorage, $location, $uibModal, $sessionStorage)
     {
-        var vm = this;
-        vm.startVal = undefined;
-        if ($localStorage.wallet === undefined) {
+        var ctrl = this;
+        ctrl.startVal = undefined;
+        $sessionStorage.isRandom = false;
 
-            $timeout(function ()
-            {
-                vm.open();
-            }, 300);
-        } else {
-            $location.path('/main');
-        }
 
-        vm.open = function ()
+
+
+
+        ctrl.open = function ()
         {
             var modalInstance = $uibModal.open({
-                animation: true, templateUrl: 'myModalContent.html', controller: 'ModalController', controllerAs: 'vm', backdrop: 'static'
+                animation: true,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalController',
+                controllerAs: 'startModal',
+                backdrop: 'static',
+                windowClass: 'app-modal-window'
 
             });
 
             modalInstance.result.then(function (startValue)
             {
 
-                vm.startVal = parseInt(startValue, 10);
+                ctrl.startVal = parseInt(startValue, 10);
                 $localStorage.$default({
                     wallet: {
-                        PLN: vm.startVal ? vm.startVal : 0, EUR: 0, USD: 0, GBP: 0
-                    }
+                        PLN: ctrl.startVal ? ctrl.startVal : 0, EUR: 0, USD: 0, GBP: 0
+                    }, log: []
 
                 });
                 $location.path('/main');
@@ -45,7 +39,7 @@
             {
                 $localStorage.$default({
                     wallet: {
-                        PLN: vm.startVal ? vm.startVal : 0, EUR: 0, USD: 0, GBP: 0
+                        PLN: ctrl.startVal ? ctrl.startVal : 0, EUR: 0, USD: 0, GBP: 0
                     }
 
                 });
@@ -53,46 +47,58 @@
             });
         };
 
+        if (null == $localStorage.wallet) {
+            ctrl.open('sm');
+        } else {
+            $location.path('/main');
+        }
     }
 
     function ModalController($uibModalInstance, $timeout)
     {
-        var vm = this;
-        vm.divHide = true;
-        vm.disabled = false;
-        vm.message = '';
+        var ctrl = this;
+        ctrl.divHide = true;
+        ctrl.disabled = false;
+        ctrl.message = '';
 
 
-        vm.ok = function ()
+        ctrl.ok = function ()
         {
-            if (vm.value === undefined) {
-                validate('Zły format lub brak wartości');
-            } else if (vm.value < 1) {
-                validate('Ujemna lub zerowa wartość');
+            if (ctrl.value === undefined) {
+                showErrorMessage('Nie wpisałeś wartości');
+            } else if (ctrl.value < 1) {
+                showErrorMessage('Wpisałeś ujemną lub zerową wartość');
             }
 
             else {
-                $uibModalInstance.close(vm.value);
+                $uibModalInstance.close(ctrl.value);
             }
         };
 
-        vm.cancel = function ()
+        ctrl.cancel = function ()
         {
             $uibModalInstance.dismiss('cancel');
         };
 
-        function validate(message)
+        function showErrorMessage(message)
         {
-            vm.divHide = false;
-            vm.message = message;
+            ctrl.divHide = false;
+            ctrl.message = message;
             $timeout(function ()
             {
-                vm.divHide = true;
-                vm.message = '';
+                ctrl.divHide = true;
+                ctrl.message = '';
 
             }, 3500);
         }
 
     }
+
+    angular.module('cinkciarzTraining')
+            .controller('StartController', StartController)
+            .controller('ModalController', ModalController);
+
+    ////////////////////////
+
 
 })();
