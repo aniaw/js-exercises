@@ -6,15 +6,19 @@
     {
         var ctrl = this;
         this.randomRates = RatesFactory.getRates();
-        this.orginalRates = CurrenciesService.getCurrencies()
-                .then(function (data)
-                {
-                    ctrl.orginalRates = data;
-                })
-                .catch(function (error)
-                {
-                    console.log('Error occured', error);
-                });
+        this.getOrginalRates = function(){
+            CurrenciesService.getCurrencies()
+                    .then(function (data)
+                    {
+                        ctrl.orginalRates = data;
+                    })
+                    .catch(function (error)
+                    {
+                        console.log('Error occured', error);
+                    });
+        };
+        this.getOrginalRates();
+
 
 
         this.randomValue = function ()
