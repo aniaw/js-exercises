@@ -28,7 +28,7 @@ module.exports = function (config)
             'app/js/directives/*.js',
             'app/js/services/*.js',
             // 'app/!(bower_components)/**/*.js',
-            'test/unit/**/*.spec.js',
+            'test/unit/services/currenciesService.spec.js',
                 'test/testHelper.js'
         ],
 

@@ -9,7 +9,6 @@
             getCurrencies: function ()
             {
                 var rates = [];
-
                 var urls = [{url: 'https://api.nbp.pl/api/exchangerates/rates/c/usd/today/'}, {url: 'https://api.nbp.pl/api/exchangerates/rates/c/eur/today/'},
                     {url: 'https://api.nbp.pl/api/exchangerates/rates/c/gbp/today/'}];
 
@@ -30,6 +29,7 @@
                                 currency.date = rate.data.rates[0].effectiveDate;
                                 rates.push(currency);
                             });
+                            console.log(rates);
                             return rates;
                         });
             }
